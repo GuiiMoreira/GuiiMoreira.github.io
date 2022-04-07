@@ -64,10 +64,10 @@ button.addEventListener('click', function teste() {
             quatro.classList.remove("movequatro")
             um.classList.remove("moveum")
 
-            button.textContent = 'Send me the challenger'
+            button.textContent = 'Send me the challenge'
         }, 4000)
     }
-    if (button.textContent === 'Send me the challenger') {
+    if (button.textContent === 'Send me the challenge') {
         window.location = './contato/contato.html'
     }
 })
