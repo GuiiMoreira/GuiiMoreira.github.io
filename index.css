@@ -28,6 +28,9 @@ header {
 
     font-family: 'Source Serif 4', serif;
     font-size: 16px;
+
+    min-width: 1000px;
+
 }
 
 .nome {
@@ -71,6 +74,7 @@ nav a {
     align-items: center;
     box-sizing: border-box;
     padding: 50px 50px 50px 50px;
+    min-width: 1000px;
 }
 
 .container-home p {
@@ -80,21 +84,20 @@ nav a {
     color: #411F19;
 
     margin-bottom: 70px;
+    text-align: center;
 }
 
 .flex {
     display: flex;
     /* perspective: 100px; */
+    min-width: 1000px;
+    justify-content: center;
 }
 
 .flex img {
     height: 400px;
+    width: 100%;
 }
-
-.flex div {
-    position: relative;
-}
-
 
 .um {
     transform: rotateY(-2deg) skewY(-5deg);
@@ -171,4 +174,17 @@ button {
 
     margin-top: 50px;
     padding: 5px 20px;
+}
+
+@media screen and (max-width: 960px) {
+    body {
+        overflow: scroll;
+    }
+}
+
+
+@media screen and (max-width: 560px) {
+    .container-home {
+        padding: 50px 10px;
+    }
 }
