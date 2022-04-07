@@ -67,6 +67,7 @@ nav a {
 .container-perfil {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     box-sizing: border-box;
     padding: 50px 50px 50px 150px;
 
@@ -78,12 +79,13 @@ nav a {
     font-size: 18px;
 
     color: #411F19;
+
+    margin-bottom: 40px;
 }
 
 .img-perfil {
     box-sizing: border-box;
     width: 530px;
-    height: 355px;
     border: 1px solid #BA0000;
 
     padding: 10px;
@@ -111,4 +113,37 @@ b {
 li {
     list-style: none;
     margin-bottom: 20px;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .container-perfil,
+    .titulo {
+        padding: 50px 10vw;
+
+    }
+}
+
+
+@media screen and (max-width: 620px) {
+
+    .container-perfil,
+    .titulo {
+        padding: 20px 0;
+    }
+}
+
+
+@media screen and (max-width: 540px) {
+
+    .img-perfil,
+    .titulo,
+    .container-topico {
+        width: 100%;
+    }
+
+    body {
+        text-align: center;
+    }
 }
