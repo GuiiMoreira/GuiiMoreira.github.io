@@ -103,33 +103,35 @@ nav a {
     transform: rotateY(-2deg) skewY(-5deg);
     transform-style: preserve-3d;
     box-shadow: -10px 0px 10px 2px hsla(0, 0%, 0%, 0.3);
-    transition: 3s;
+    transition: 2.5s;
 }
 
 .divdois {
+    width: 200px;
     transform: rotateY(2deg) skewY(5deg);
     transform-style: preserve-3d;
     box-shadow: inset 10px 0px 100px 2px hsla(0, 0%, 0%, 0.3);
-    transition: 2s;
+    transition: 1.5s;
 }
 
 .dois {
     box-shadow: 0px 0px 10px 2px hsla(0, 0%, 0%, 0.3);
 }
 
-
-.tres {
+.divtres {
+    width: 200px;
     transform: rotateY(-2deg) skewY(-5deg);
     transform-style: preserve-3d;
     box-shadow: 0px 0px 10px 2px hsla(0, 0%, 0%, 0.3);
-    transition: 2s;
+    transition: 1.5s;
 }
+
 
 .divquatro {
     transform: rotateY(2deg) skewY(5deg);
     transform-style: preserve-3d;
     box-shadow: inset 10px 0px 100px 2px hsla(0, 0%, 0%, 0.3);
-    transition: 3s;
+    transition: 2.5s;
 }
 
 .quatro {
@@ -139,30 +141,35 @@ nav a {
 }
 
 .moveum {
-    transform: translateX(200px) rotateY(0deg);
+    transform: rotateY(0deg);
     transform-style: none;
     box-shadow: none;
 }
 
 .movedois {
-    transform: rotateY(90deg);
-    transform-style: none;
+    width: 0;
+    /* transform: rotateY(90deg);
+    transform-style: none; */
     box-shadow: none;
 }
 
 .movetres {
-    transform: rotateY(-90deg);
-    transform-style: none;
+    width: 0;
+    /* transform: rotateY(-90deg);
+    transform-style: none; */
     box-shadow: none;
 }
 
 .movequatro {
-    transform: translateX(-205px) translateY(5px) rotateY(0deg);
+    transform: translateY(5px) rotateY(0deg);
     transform-style: none;
     box-shadow: none;
 }
 
-.movequatro .quatro {
+.movequatro .quatro,
+.moveum .um,
+.movedois .dois,
+.movetres .tres {
     box-shadow: none;
 }
 

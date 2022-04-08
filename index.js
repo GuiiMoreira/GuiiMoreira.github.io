@@ -3,6 +3,7 @@ const um = document.querySelector('.um')
 const divdois = document.querySelector('.divdois')
 const dois = document.querySelector('.dois')
 const tres = document.querySelector('.tres')
+const divtres = document.querySelector('.divtres');
 const quatro = document.querySelector('.divquatro')
 
 
@@ -11,7 +12,7 @@ button.addEventListener('click', function teste() {
 
     if (button.textContent === 'Save the castle') {
         divdois.classList.add("movedois")
-        tres.classList.add("movetres")
+        divtres.classList.add("movetres")
         quatro.classList.add("movequatro")
         um.classList.add("moveum")
 
@@ -20,18 +21,18 @@ button.addEventListener('click', function teste() {
             tres.setAttribute('src', './Assets/quadro6.png')
 
             divdois.classList.remove("movedois")
-            tres.classList.remove("movetres")
+            divtres.classList.remove("movetres")
             quatro.classList.remove("movequatro")
             um.classList.remove("moveum")
 
             button.textContent = 'See the King'
-        }, 4000)
+        }, 3000)
     }
 
 
     if (button.textContent === 'See the King') {
         divdois.classList.add("movedois")
-        tres.classList.add("movetres")
+        divtres.classList.add("movetres")
         quatro.classList.add("movequatro")
         um.classList.add("moveum")
 
@@ -40,18 +41,18 @@ button.addEventListener('click', function teste() {
             tres.setAttribute('src', './Assets/quadro8.png')
 
             divdois.classList.remove("movedois")
-            tres.classList.remove("movetres")
+            divtres.classList.remove("movetres")
             quatro.classList.remove("movequatro")
             um.classList.remove("moveum")
 
             button.textContent = 'Talk to Princess'
-        }, 4000)
+        }, 3000)
     }
 
 
     if (button.textContent === 'Talk to Princess') {
         divdois.classList.add("movedois")
-        tres.classList.add("movetres")
+        divtres.classList.add("movetres")
         quatro.classList.add("movequatro")
         um.classList.add("moveum")
 
@@ -60,12 +61,12 @@ button.addEventListener('click', function teste() {
             tres.setAttribute('src', './Assets/quadro10.png')
 
             divdois.classList.remove("movedois")
-            tres.classList.remove("movetres")
+            divtres.classList.remove("movetres")
             quatro.classList.remove("movequatro")
             um.classList.remove("moveum")
 
             button.textContent = 'Send me the challenge'
-        }, 4000)
+        }, 3000)
     }
     if (button.textContent === 'Send me the challenge') {
         window.location = './contato/contato.html'
