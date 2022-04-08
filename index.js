@@ -1,5 +1,5 @@
 const button = document.querySelector('button')
-const um = document.querySelector('.um')
+const um = document.querySelector('.divum')
 const divdois = document.querySelector('.divdois')
 const dois = document.querySelector('.dois')
 const tres = document.querySelector('.tres')
