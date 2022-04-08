@@ -26,7 +26,7 @@ button.addEventListener('click', function teste() {
             um.classList.remove("moveum")
 
             button.textContent = 'See the King'
-        }, 3000)
+        }, 3500)
     }
 
 
@@ -46,7 +46,7 @@ button.addEventListener('click', function teste() {
             um.classList.remove("moveum")
 
             button.textContent = 'Talk to Princess'
-        }, 3000)
+        }, 3500)
     }
 
 
@@ -66,7 +66,7 @@ button.addEventListener('click', function teste() {
             um.classList.remove("moveum")
 
             button.textContent = 'Send me the challenge'
-        }, 3000)
+        }, 3500)
     }
     if (button.textContent === 'Send me the challenge') {
         window.location = './contato/contato.html'
