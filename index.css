@@ -104,7 +104,7 @@ nav a {
     transform: rotateY(-2deg) skewY(-5deg);
     transform-style: preserve-3d;
     box-shadow: -10px 0px 10px 2px hsla(0, 0%, 0%, 0.3);
-    transition: 2.5s;
+    transition: 2s;
 }
 
 .divdois {
@@ -133,7 +133,7 @@ nav a {
     transform: rotateY(2deg) skewY(5deg);
     transform-style: preserve-3d;
     box-shadow: inset 10px 0px 100px 2px hsla(0, 0%, 0%, 0.3);
-    transition: 2.5s;
+    transition: 2s;
 }
 
 .quatro {

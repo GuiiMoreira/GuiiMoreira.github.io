@@ -26,7 +26,7 @@ button.addEventListener('click', function teste() {
             um.classList.remove("moveum")
 
             button.textContent = 'See the King'
-        }, 3500)
+        }, 3000)
     }
 
 
@@ -46,7 +46,7 @@ button.addEventListener('click', function teste() {
             um.classList.remove("moveum")
 
             button.textContent = 'Talk to Princess'
-        }, 3500)
+        }, 3000)
     }
 
 
