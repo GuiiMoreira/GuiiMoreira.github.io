@@ -20,13 +20,16 @@ button.addEventListener('click', function teste() {
             dois.setAttribute('src', './Assets/quadro5.png')
             tres.setAttribute('src', './Assets/quadro6.png')
 
-            divdois.classList.remove("movedois")
-            divtres.classList.remove("movetres")
-            quatro.classList.remove("movequatro")
-            um.classList.remove("moveum")
+            setTimeout(() => {
+                divdois.classList.remove("movedois")
+                divtres.classList.remove("movetres")
+                quatro.classList.remove("movequatro")
+                um.classList.remove("moveum")
 
-            button.textContent = 'See the King'
-        }, 3000)
+                button.textContent = 'See the King'
+            }, 500)
+
+        }, 2500)
     }
 
 
@@ -40,13 +43,17 @@ button.addEventListener('click', function teste() {
             dois.setAttribute('src', './Assets/quadro7.png')
             tres.setAttribute('src', './Assets/quadro8.png')
 
-            divdois.classList.remove("movedois")
-            divtres.classList.remove("movetres")
-            quatro.classList.remove("movequatro")
-            um.classList.remove("moveum")
+            setTimeout(() => {
+                divdois.classList.remove("movedois")
+                divtres.classList.remove("movetres")
+                quatro.classList.remove("movequatro")
+                um.classList.remove("moveum")
 
-            button.textContent = 'Talk to Princess'
-        }, 3000)
+                button.textContent = 'Talk to Princess'
+
+            }, 500)
+
+        }, 2500)
     }
 
 
@@ -59,14 +66,18 @@ button.addEventListener('click', function teste() {
         setTimeout(() => {
             dois.setAttribute('src', './Assets/quadro9.png')
             tres.setAttribute('src', './Assets/quadro10.png')
+            setTimeout(() => {
+                divdois.classList.remove("movedois")
+                divtres.classList.remove("movetres")
+                quatro.classList.remove("movequatro")
+                um.classList.remove("moveum")
 
-            divdois.classList.remove("movedois")
-            divtres.classList.remove("movetres")
-            quatro.classList.remove("movequatro")
-            um.classList.remove("moveum")
+                button.textContent = 'Send me the challenge'
 
-            button.textContent = 'Send me the challenge'
-        }, 3500)
+
+            }, 500)
+
+        }, 2500)
     }
     if (button.textContent === 'Send me the challenge') {
         window.location = './contato/contato.html'
