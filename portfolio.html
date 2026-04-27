@@ -1,693 +1,642 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guii Moreira | Portfólio</title>
+  <title>Guilherme Moreira | Fullstack Developer</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;700&display=swap');
-
     :root {
-      --bg: #f3f4e1;
-      --text: #411f19;
-      --accent: #ba0000;
-      --color-accent-glow: rgba(186, 0, 0, 0.25);
-      --card: #fffdf4;
-      --border: #d9cdbd;
-      --muted: #7b6258;
+      --color-bg: #0a0a0a;
+      --color-surface: #111111;
+      --color-surface-2: #161616;
+      --color-border: rgba(255,255,255,0.08);
+      --color-text: #e8e8e8;
+      --color-text-muted: #888888;
+      --color-text-faint: #444444;
+      --color-accent: #00d4ff;
+      --color-accent-glow: rgba(0, 212, 255, 0.15);
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.8125rem, 0.78rem + 0.25vw, 0.95rem);
+      --text-base: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+      --text-lg: clamp(1.05rem, 0.95rem + 0.55vw, 1.3rem);
+      --text-xl: clamp(1.3rem, 1.1rem + 0.95vw, 1.9rem);
+      --text-2xl: clamp(1.7rem, 1.1rem + 1.7vw, 2.6rem);
+      --text-hero: clamp(2.4rem, 1.25rem + 4.2vw, 5rem);
+      --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem;
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
+      --space-16: 4rem; --space-24: 6rem; --space-32: 8rem;
+      --container: min(1120px, 100vw - (var(--space-4) * 2));
+    }
+
+    [data-theme="light"] {
+      --color-bg: #f7f6f2;
+      --color-surface: #f9f8f5;
+      --color-surface-2: #fbfbf9;
+      --color-border: rgba(0,0,0,0.08);
+      --color-text: #1a1a1a;
+      --color-text-muted: #666666;
+      --color-text-faint: #aaaaaa;
+      --color-accent: #0099bb;
+      --color-accent-glow: rgba(0, 153, 187, 0.12);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Source Sans 3', sans-serif;
-      line-height: 1.6;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--text-base)/1.6 'Satoshi', system-ui, sans-serif;
       cursor: none;
+      overflow-x: hidden;
     }
 
-    img { max-width: 100%; display: block; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      clip: rect(0,0,0,0);
+      overflow: hidden;
+    }
+    .sr-only:focus {
+      width: auto;
+      height: auto;
+      clip: auto;
+      inset: var(--space-4);
+      background: var(--color-surface);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      z-index: 2000;
+    }
 
-    a { color: inherit; }
-
-    .container { width: min(1120px, 92vw); margin: 0 auto; }
+    .container { width: var(--container); margin-inline: auto; max-width: 100%; }
+    h1, h2, h3 { font-family: 'Clash Display', system-ui, sans-serif; line-height: 1.1; letter-spacing: 0.01em; }
+    h1 { font-size: var(--text-hero); max-width: 12ch; }
+    h2 { font-size: var(--text-2xl); margin-bottom: var(--space-6); }
+    .section { padding-block: var(--space-24); border-bottom: 1px solid var(--color-border); }
+    .muted { color: var(--color-text-muted); }
 
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(243, 244, 225, 0.94);
-      backdrop-filter: blur(4px);
-      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in oklab, var(--color-bg), transparent 30%);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
     }
-
-    .header-inner {
-      min-height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+    .header-inner { min-height: calc(var(--space-12) + var(--space-4)); display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); }
+    .brand { display: inline-flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--color-text); font-weight: 700; min-height: 44px; }
+    .brand svg { width: 24px; height: 24px; }
+    .nav-desktop { display: flex; align-items: center; gap: var(--space-2); }
+    .nav-desktop a, .icon-btn, .menu-toggle {
+      min-height: 44px; min-width: 44px; padding: 0 var(--space-3);
+      border-radius: var(--radius-md); border: 1px solid transparent;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--color-text); text-decoration: none; font-size: var(--text-sm);
+      background: transparent;
     }
+    .nav-desktop a.active { color: var(--color-accent); border-color: var(--color-border); }
+    .nav-desktop a:hover, .icon-btn:hover, .menu-toggle:hover { border-color: var(--color-border); }
+    .menu-toggle { display: none; }
 
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      font-family: 'Source Serif 4', serif;
-      font-weight: 700;
-      text-decoration: none;
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 60;
+      background: color-mix(in oklab, var(--color-bg), transparent 8%);
+      backdrop-filter: blur(12px);
+      display: grid; place-items: center;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 220ms ease;
     }
+    .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    .mobile-menu nav { display: grid; gap: var(--space-6); text-align: center; }
+    .mobile-menu a { color: var(--color-text); text-decoration: none; font-size: var(--text-xl); font-family: 'Clash Display', sans-serif; }
 
-    .nav-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-      padding: 8px 12px;
-      border: 1px solid transparent;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
-    h1, h2, h3 { font-family: 'Source Serif 4', serif; line-height: 1.2; }
-    h1 { font-size: clamp(2rem, 4vw, 3.25rem); margin-bottom: 12px; }
-    h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 18px; }
-
-    .lead { font-size: clamp(1.05rem, 2.4vw, 1.35rem); max-width: 760px; }
-
-    #hero {
-      position: relative;
+    .hero {
       min-height: 100dvh;
-      border-bottom: 1px solid var(--border);
-      overflow: clip;
-      display: grid;
-      align-items: center;
-      isolation: isolate;
-      --spotlight-x: 50%;
-      --spotlight-y: 50%;
-      background:
-        radial-gradient(600px circle at var(--spotlight-x) var(--spotlight-y), var(--color-accent-glow), transparent 70%),
-        linear-gradient(180deg, #f7f8e9 0%, var(--bg) 100%);
-    }
-
-    #hero .hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    #hero .hero-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        radial-gradient(600px circle at var(--spotlight-x) var(--spotlight-y), var(--color-accent-glow), transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content {
       position: relative;
-      padding: 32px 0;
-      max-width: 860px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
     }
-
-    .hero-title,
-    .hero-subtitle {
-      transition: transform 220ms ease-out;
-      will-change: transform;
-    }
-
-    .hero-actions {
-      margin-top: 26px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; padding-top: var(--space-32); padding-bottom: var(--space-16); }
+    .eyebrow { color: var(--color-accent); font-size: var(--text-sm); margin-bottom: var(--space-4); letter-spacing: .08em; text-transform: uppercase; }
+    .hero-sub { font-size: var(--text-lg); max-width: 58ch; margin-top: var(--space-6); color: var(--color-text-muted); }
+    .hero-actions { margin-top: var(--space-10); display: flex; gap: var(--space-4); flex-wrap: wrap; }
 
     .btn {
-      border: 1px solid var(--text);
-      border-radius: 8px;
-      padding: 10px 16px;
-      text-decoration: none;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: .25s;
+      min-height: 44px; padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-lg); border: 1px solid var(--color-border);
+      text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: var(--space-2);
+      transition: box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .btn-primary { background: var(--color-accent); color: #021116; border-color: transparent; }
+    .btn-ghost { color: var(--color-text); background: transparent; }
+    .btn:hover { box-shadow: 0 0 0 3px var(--color-accent-glow); border-color: var(--color-accent); }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-8); align-items: start; }
+    .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); }
+    .stack-row { margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .stack-row img { width: 28px; height: 28px; filter: grayscale(0.1); }
+
+    .timeline { border-left: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent); padding-left: var(--space-8); display: grid; gap: var(--space-8); }
+    .timeline article { position: relative; }
+    .timeline article::before {
+      content: ''; position: absolute; left: calc(var(--space-8) * -1 - 0.3125rem); top: var(--space-2);
+      width: 0.625rem; height: 0.625rem; border-radius: 999px; background: var(--color-accent);
     }
 
-    .btn-primary {
-      background: var(--text);
-      color: #fff;
+    .ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .ai-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); transition: box-shadow 220ms ease, border-color 220ms ease; }
+    .ai-card:hover { border-color: color-mix(in srgb, var(--color-accent) 38%, var(--color-border)); box-shadow: 0 0 0 3px var(--color-accent-glow); }
+    .ai-head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+    .ai-head img { width: 24px; height: 24px; }
+    .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+    .chip { font-size: var(--text-xs); border: 1px solid var(--color-border); border-radius: 999px; padding: var(--space-1) var(--space-3); color: var(--color-text-muted); }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+    .project { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); overflow: hidden; transition: transform 200ms ease, box-shadow 200ms ease; }
+    .project:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.22), 0 0 0 2px var(--color-accent-glow); }
+    .project img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .project-body { padding: var(--space-6); display: grid; gap: var(--space-4); }
+    .project-links { display: flex; gap: var(--space-2); }
+    .icon-link { min-width: 44px; min-height: 44px; border-radius: var(--radius-md); border: 1px solid var(--color-border); display: inline-flex; align-items: center; justify-content: center; color: var(--color-text); }
+
+    .contact-links { display: grid; gap: var(--space-4); }
+    .contact-link {
+      position: relative; font-size: var(--text-lg); text-decoration: none; color: var(--color-text);
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    .contact-link::after {
+      content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: var(--color-accent);
+      transform: scaleX(0); transform-origin: left; transition: transform 220ms ease;
+    }
+    .contact-link:hover::after { transform: scaleX(1); }
+
+    .site-footer { padding: var(--space-10) 0; text-align: center; color: var(--color-text-muted); }
+    .footer-icons { margin-top: var(--space-4); display: flex; gap: var(--space-3); justify-content: center; }
+
+    .cursor-dot,.cursor-ring {
+      position: fixed; left: 0; top: 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 100;
+      transition: transform 120ms ease, background-color 120ms ease;
+    }
+    .cursor-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--color-accent); }
+    .cursor-ring { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--color-accent); }
+    .cursor-ring.hover { transform: translate(-50%, -50%) scale(2); }
+    .cursor-dot.click { background: #ffffff; }
+
+    .fade-in { opacity: 1; }
+    @supports (animation-timeline: scroll()) {
+      .fade-in {
+        opacity: 0;
+        animation: reveal-fade linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+      }
+    }
+    @keyframes reveal-fade { to { opacity: 1; } }
+
+    @media (max-width: 960px) {
+      .projects-grid, .ai-grid, .about-grid { grid-template-columns: 1fr; }
+      .nav-desktop a { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .hero-content { padding-top: var(--space-24); }
     }
 
-    .btn:hover { transform: translateY(-2px); }
-
-    .cursor-dot,
-    .cursor-ring {
-      position: fixed;
-      top: 0;
-      left: 0;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 1000;
-      transform: translate(-50%, -50%);
-      transition: transform 180ms ease, opacity 180ms ease;
+    @media (max-width: 640px) {
+      .header-inner { min-height: var(--space-16); }
+      .brand span { display: none; }
+      .section { padding-block: var(--space-16); }
+      .hero-content { padding-top: var(--space-16); padding-bottom: var(--space-12); }
+      .btn { width: 100%; justify-content: center; }
+      .hero-actions { width: 100%; }
     }
 
-    .cursor-dot {
-      width: 12px;
-      height: 12px;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(186, 0, 0, 0.16);
-    }
-
-    .cursor-ring {
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--accent);
-      background: rgba(186, 0, 0, 0.06);
-    }
-
-    .cursor-ring.is-hover {
-      transform: translate(-50%, -50%) scale(2);
-    }
-
-    .cursor-dot.is-click,
-    .cursor-ring.is-click {
-      opacity: 1;
-      filter: brightness(1.5);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
-    }
-
-    .panel + .panel { margin-top: 14px; }
-
-    .muted { color: var(--muted); }
-
-    .timeline {
-      display: grid;
-      gap: 14px;
-    }
-
-    .timeline article { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-    .tag {
-      font-size: 0.85rem;
-      border: 1px solid var(--border);
-      background: #fff;
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-
-    .tools-grid,
-    .projects-grid {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    }
-
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: grid;
-    }
-
-    .project-body { padding: 14px; display: grid; gap: 10px; }
-    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    .contact-grid {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: 1fr 260px;
-      align-items: start;
-    }
-
-    .contact-list { list-style: none; display: grid; gap: 10px; }
-
-    footer { padding: 28px 0 40px; }
-
-    @media (max-width: 900px) {
-      .about-grid,
-      .contact-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 520px) {
-      .header-inner { flex-direction: column; align-items: flex-start; padding: 10px 0; }
+    @media (hover: none) {
+      body { cursor: auto; }
+      .cursor-dot, .cursor-ring { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
       body { cursor: auto; }
-      .cursor-dot,
-      .cursor-ring { display: none; }
-      .hero-title,
-      .hero-subtitle { transition: none; }
+      .cursor-dot, .cursor-ring { display: none; }
     }
   </style>
 </head>
 <body>
+  <a href="#main" class="sr-only">Skip to content</a>
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
+
   <header class="site-header">
     <div class="container header-inner">
-      <a href="#hero" class="brand" aria-label="Voltar ao início">GM</a>
-      <nav class="nav-links" aria-label="Navegação principal">
-        <a href="#hero" class="active">Home</a>
-        <a href="#about">Perfil</a>
-        <a href="#experience">Experiência</a>
-        <a href="#ai-tools">AI Tools</a>
-        <a href="#projects">Projetos</a>
-        <a href="#contact">Contato</a>
+      <a class="brand" href="#hero" aria-label="Ir para o início" data-cursor="hover">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 19V5h6l3 7 3-7h6v14h-3V9l-4 9h-4L6 9v10H3Z" fill="currentColor"/>
+        </svg>
+        <span>Guilherme Moreira</span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Navegação principal">
+        <a href="#about" data-cursor="hover">Sobre</a>
+        <a href="#experience" data-cursor="hover">Experiência</a>
+        <a href="#ai-tools" data-cursor="hover">IA</a>
+        <a href="#projects" data-cursor="hover">Projetos</a>
+        <a href="#contact" data-cursor="hover">Contato</a>
+        <button id="theme-toggle" class="icon-btn" aria-label="Alternar tema" data-cursor="hover"><i data-lucide="moon"></i></button>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu" data-cursor="hover"><i data-lucide="menu"></i></button>
       </nav>
     </div>
   </header>
 
-  <main>
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <nav>
+      <a href="#about" data-cursor="hover">Sobre</a>
+      <a href="#experience" data-cursor="hover">Experiência</a>
+      <a href="#ai-tools" data-cursor="hover">Trabalhando com IA</a>
+      <a href="#projects" data-cursor="hover">Projetos</a>
+      <a href="#contact" data-cursor="hover">Contato</a>
+    </nav>
+  </div>
+
+  <main id="main">
     <section id="hero" class="hero">
-      <canvas id="hero-particles" class="hero-canvas" aria-hidden="true"></canvas>
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="container">
-        <div class="hero-content" data-cursor="hover">
-          <h1 class="hero-title">Sou o Guilherme Moreira, seja bem-vindo ao meu portfólio.</h1>
-          <p class="lead hero-subtitle">Engenheiro e desenvolvedor web com foco em Front End, experiência com Back End e paixão por criar experiências digitais úteis, bonitas e com impacto real.</p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects" data-cursor="hover">Ver projetos</a>
-            <a class="btn" href="#contact" data-cursor="hover">Falar comigo</a>
-          </div>
+      <div class="container hero-content">
+        <p class="eyebrow">Fullstack Developer</p>
+        <h1 id="hero-heading">Guilherme Moreira</h1>
+        <p id="hero-subtitle" class="hero-sub">Eu construo produtos digitais com foco em performance, clareza de interface e engenharia sustentável no longo prazo.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects" data-cursor="hover">Ver Projetos</a>
+          <a class="btn btn-ghost" href="#contact" data-cursor="hover">Contato</a>
         </div>
       </div>
     </section>
 
-    <section id="about">
+    <section id="about" class="section">
       <div class="container">
-        <h2>Sobre mim</h2>
+        <h2 class="fade-in">Sobre</h2>
         <div class="about-grid">
-          <aside class="panel">
-            <img src="./Assets/perfil.jpg" alt="Foto de perfil de Guilherme Moreira" />
+          <article class="card fade-in">
+            <p>Olá, meu nome é <strong>Guilherme Moreira</strong>. Nasci em Salvador (BA), tenho 29 anos e iniciei minha carreira na indústria antes de migrar definitivamente para tecnologia no fim de 2020.</p>
+            <p style="margin-top:var(--space-4)">Hoje atuo com desenvolvimento fullstack, combinando frontend sólido e backend pragmático para entregar produto de verdade — com foco em JavaScript, React, Vue/Nuxt, Node.js, SQL e GraphQL.</p>
+            <p style="margin-top:var(--space-4)">Meu objetivo é crescer como referência técnica, gerar impacto real nos produtos em que atuo e, no futuro, devolver esse aprendizado em iniciativas de educação para jovens.</p>
+            <div class="stack-row" aria-label="Tecnologias principais">
+              <img src="https://cdn.simpleicons.org/javascript" alt="JavaScript" />
+              <img src="https://cdn.simpleicons.org/react" alt="React" />
+              <img src="https://cdn.simpleicons.org/vuedotjs" alt="Vue" />
+              <img src="https://cdn.simpleicons.org/nodedotjs" alt="Node.js" />
+              <img src="https://cdn.simpleicons.org/graphql" alt="GraphQL" />
+              <img src="https://cdn.simpleicons.org/postgresql" alt="PostgreSQL" />
+            </div>
+          </article>
+          <aside class="card fade-in">
+            <img src="./Assets/perfil.jpg" alt="Foto de perfil de Guilherme Moreira" style="border-radius:var(--radius-lg);" />
           </aside>
-
-          <div>
-            <p>Olá, meu nome é <strong>Guilherme Moreira</strong>. Nasci em Salvador (BA), tenho 29 anos e construí minha carreira inicial na indústria. No final de 2020 decidi migrar para tecnologia e, desde então, tenho estudado e praticado desenvolvimento de software com constância.</p>
-            <br />
-            <p>Ao longo da jornada aprendi e trabalhei com <strong>JavaScript, React, Vue/Nuxt, HTML, CSS, Node.js, SQL, GraphQL, Jest e Cypress</strong>, além de metodologias ágeis com Scrum e Jira. Sou dedicado, curioso e movido por desafios.</p>
-            <br />
-            <p>Meus maiores sonhos são continuar evoluindo como desenvolvedor, gerar impacto positivo nos negócios em que atuo e no futuro contribuir socialmente por meio de iniciativas educacionais para jovens.</p>
-          </div>
         </div>
       </div>
     </section>
 
-    <section id="experience">
+    <section id="experience" class="section">
       <div class="container">
-        <h2>Experiência e formação</h2>
+        <h2 class="fade-in">Experiência</h2>
         <div class="timeline">
-          <article>
-            <h3>Histórico profissional</h3>
-            <p><strong>Desenvolvedor Front End Jr — Cheap2Ship (2022 - atual)</strong></p>
-            <p class="muted">Vue.js e Nuxt, testes com Jest e Cypress, integração GraphQL e trabalho em equipe com Jira.</p>
-            <br />
-            <p><strong>Planejador de intervenções — Petrobras (2019 - 2020)</strong></p>
-            <p class="muted">Gestão de manutenção, documentação, planejamento de intervenções e análises de risco.</p>
-            <br />
-            <p><strong>Técnico em Operações de Processos Industriais — Petrobras (2016 - atual)</strong></p>
-            <p class="muted">Acompanhamento de processos produtivos e garantia da qualidade operacional.</p>
+          <article class="fade-in">
+            <h3>Cheap2Ship · Desenvolvedor Front End Jr</h3>
+            <p class="muted">2022 — Atual</p>
+            <ul>
+              <li>Desenvolvimento de interfaces em Vue.js/Nuxt com foco em UX, legibilidade e performance.</li>
+              <li>Testes automatizados com Jest e Cypress para reduzir regressões em fluxos críticos.</li>
+              <li>Integrações GraphQL e rotina de entrega orientada por Scrum e Jira.</li>
+            </ul>
           </article>
-
-          <article>
-            <h3>Habilidades</h3>
-            <div class="tags">
-              <span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">HTML</span><span class="tag">Sass</span><span class="tag">Jest</span><span class="tag">Cypress</span><span class="tag">Node.js</span><span class="tag">GraphQL</span><span class="tag">PostgreSQL</span>
-            </div>
+          <article class="fade-in">
+            <h3>Petrobras · Planejador de Intervenções</h3>
+            <p class="muted">2019 — 2020</p>
+            <ul>
+              <li>Planejamento técnico de intervenções operacionais com análise de risco e documentação.</li>
+              <li>Coordenação entre times de campo e engenharia para execução segura e previsível.</li>
+            </ul>
           </article>
-
-          <article>
-            <h3>Perfil acadêmico</h3>
-            <p><strong>UNIRIO</strong> — Bacharelado em Sistemas de Informação (08/2021 - em progresso)</p>
-            <p><strong>Cubos Academy</strong> — Desenvolvimento Web Full Stack (728h, 08/2021 - 03/2022)</p>
-            <p><strong>IFBA</strong> — Engenharia Química (08/2012 - 01/2018)</p>
-            <p><strong>IFBA</strong> — Técnico em Química (04/2008 - 12/2011)</p>
+          <article class="fade-in">
+            <h3>Petrobras · Técnico em Operações de Processos Industriais</h3>
+            <p class="muted">2016 — Atual</p>
+            <ul>
+              <li>Acompanhamento de processos produtivos e padrões de qualidade operacional.</li>
+              <li>Disciplina de operação em ambientes críticos, convertida hoje em rigor técnico no software.</li>
+            </ul>
+          </article>
+          <article class="fade-in">
+            <h3>Formação</h3>
+            <ul>
+              <li>UNIRIO — Bacharelado em Sistemas de Informação (08/2021 — em progresso)</li>
+              <li>Cubos Academy — Desenvolvimento Web Full Stack, 728h (08/2021 — 03/2022)</li>
+              <li>IFBA — Engenharia Química (08/2012 — 01/2018)</li>
+              <li>IFBA — Técnico em Química (04/2008 — 12/2011)</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="ai-tools">
+    <section id="ai-tools" class="section">
       <div class="container">
-        <h2>AI Tools no meu fluxo</h2>
-        <p class="lead">Ferramentas de IA que aceleram pesquisa, documentação, revisão de código e prototipação durante o desenvolvimento.</p>
-        <div class="tools-grid" style="margin-top:16px;">
-          <article class="panel"><h3>ChatGPT</h3><p class="muted">Apoio para ideação, refatoração, troubleshooting e escrita técnica.</p></article>
-          <article class="panel"><h3>GitHub Copilot</h3><p class="muted">Sugestões de código para acelerar tarefas repetitivas e boilerplate.</p></article>
-          <article class="panel"><h3>Perplexity</h3><p class="muted">Pesquisa rápida com foco em fontes, comparações e descoberta técnica.</p></article>
-          <article class="panel"><h3>Claude</h3><p class="muted">Análise de contexto longo para arquitetura, revisão e planejamento.</p></article>
+        <h2 class="fade-in">Trabalhando com IA</h2>
+        <div class="ai-grid">
+          <article class="ai-card fade-in">
+            <div class="ai-head"><img src="https://cdn.simpleicons.org/anthropic" alt="Logo Claude" /><h3>Claude Code</h3></div>
+            <p>Uso como pair programmer para atacar lógica backend mais sensível e reduzir tempo de refatorações grandes sem perder cobertura mental do domínio.</p>
+            <p>Também acelera revisão arquitetural quando preciso comparar abordagens e trade-offs antes de implementar.</p>
+            <div class="chips"><span class="chip">Refatoração</span><span class="chip">Backend</span><span class="chip">Arquitetura</span></div>
+          </article>
+          <article class="ai-card fade-in">
+            <div class="ai-head"><img src="https://cdn.simpleicons.org/love" alt="Logo Lovable" /><h3>Lovable</h3></div>
+            <p>Aplico para prototipar componentes e fluxos de UI rapidamente, validando decisões de produto sem desperdiçar sprint com tentativa e erro manual.</p>
+            <p>É útil para sair de ideia abstrata para interface navegável em poucas iterações.</p>
+            <div class="chips"><span class="chip">Prototipagem</span><span class="chip">UI</span><span class="chip">Design Ops</span></div>
+          </article>
+          <article class="ai-card fade-in">
+            <div class="ai-head"><img src="https://cdn.simpleicons.org/google" alt="Logo Google" /><h3>Google AI Studio</h3></div>
+            <p>Uso para experimentos de prompt engineering e integração com Gemini API em casos de resumo, classificação e automações assistidas por linguagem.</p>
+            <p>Mantenho rastreabilidade dos prompts para transformar experimentos em fluxos reproduzíveis em produção.</p>
+            <div class="chips"><span class="chip">Gemini API</span><span class="chip">Prompting</span><span class="chip">Experimentação</span></div>
+          </article>
+          <article class="ai-card fade-in">
+            <div class="ai-head"><img src="https://cdn.simpleicons.org/openai" alt="Logo OpenAI" /><h3>OpenAI Codex</h3></div>
+            <p>Uso para gerar esboços de implementação, acelerar escrita de testes e padronizar tarefas repetitivas de engenharia com qualidade consistente.</p>
+            <p>Funciona melhor quando combinado com revisão humana rígida e critérios claros de aceite técnico.</p>
+            <div class="chips"><span class="chip">Codegen</span><span class="chip">Testes</span><span class="chip">Produtividade</span></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="section">
       <div class="container">
-        <h2>Projetos</h2>
+        <h2 class="fade-in">Projetos</h2>
         <div class="projects-grid">
-          <article class="project-card">
-            <img src="./Assets/Projetos/Guiflix.jpg" alt="Projeto Guiflix" />
+          <article class="project fade-in">
+            <img src="./Assets/Projetos/Guiflix.jpg" alt="Prévia do projeto GuiiFlix" />
             <div class="project-body">
-              <h3>GuiiFlix</h3>
-              <p class="muted">Plataforma de filmes com sinopse, trailer, busca por título e filtro por categoria.</p>
-              <div class="project-links"><a class="btn" href="https://guiiflix.netlify.app/" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20HTML%2C%20CSS%2C%20JavaScript/Plataforma%20de%20filmes/GuiFlix" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <h3>GuiiFlix</h3><p class="muted">Plataforma de filmes com sinopse, trailer, busca por título e filtro por categoria.</p>
+              <div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML</span><span class="chip">CSS</span></div>
+              <div class="project-links">
+                <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20HTML%2C%20CSS%2C%20JavaScript/Plataforma%20de%20filmes/GuiFlix" target="_blank" rel="noopener noreferrer" aria-label="GitHub do projeto GuiiFlix" data-cursor="hover"><i data-lucide="github"></i></a>
+                <a class="icon-link" href="https://guiiflix.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Demo do projeto GuiiFlix" data-cursor="hover"><i data-lucide="external-link"></i></a>
+              </div>
             </div>
           </article>
-
-          <article class="project-card">
-            <img src="./Assets/Projetos/Gerenciador-pagamentos.jpg" alt="Gerenciador de pagamentos" />
+          <article class="project fade-in">
+            <img src="./Assets/Projetos/Gerenciador-pagamentos.jpg" alt="Prévia do gerenciador de pagamentos" />
             <div class="project-body">
-              <h3>Gerenciador de pagamentos</h3>
-              <p class="muted">Sistema para gestão de clientes e cobranças com autenticação e CRUD completo.</p>
-              <div class="project-links"><a class="btn" href="https://bugados-e-pelados.netlify.app/Login" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/App-Gerenciamento-de-Pagamentos" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <h3>Gerenciador de pagamentos</h3><p class="muted">Sistema para gestão de clientes e cobranças com autenticação e CRUD completo.</p>
+              <div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">SQL</span></div>
+              <div class="project-links">
+                <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/App-Gerenciamento-de-Pagamentos" target="_blank" rel="noopener noreferrer" aria-label="GitHub do gerenciador de pagamentos" data-cursor="hover"><i data-lucide="github"></i></a>
+                <a class="icon-link" href="https://bugados-e-pelados.netlify.app/Login" target="_blank" rel="noopener noreferrer" aria-label="Demo do gerenciador de pagamentos" data-cursor="hover"><i data-lucide="external-link"></i></a>
+              </div>
             </div>
           </article>
-
-          <article class="project-card">
-            <img src="./Assets/Projetos/Guichannels.jpg" alt="Projeto Guichannels" />
+          <article class="project fade-in">
+            <img src="./Assets/Projetos/Guichannels.jpg" alt="Prévia do projeto GuiiChannels" />
             <div class="project-body">
-              <h3>GuiiChannels</h3>
-              <p class="muted">Web app de comunicação assíncrona para equipes com canais e mensagens.</p>
-              <div class="project-links"><a class="btn" href="https://guii-channels.netlify.app" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/ChatApp/ChatApp" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <h3>GuiiChannels</h3><p class="muted">Web app de comunicação assíncrona para equipes com canais e mensagens.</p>
+              <div class="chips"><span class="chip">React</span><span class="chip">Firebase</span><span class="chip">CSS</span></div>
+              <div class="project-links">
+                <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/ChatApp/ChatApp" target="_blank" rel="noopener noreferrer" aria-label="GitHub do projeto GuiiChannels" data-cursor="hover"><i data-lucide="github"></i></a>
+                <a class="icon-link" href="https://guii-channels.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Demo do projeto GuiiChannels" data-cursor="hover"><i data-lucide="external-link"></i></a>
+              </div>
             </div>
           </article>
-
-          <article class="project-card">
-            <img src="./Assets/Projetos/100divs.jpg" alt="Projeto 100 divs challenge" />
+          <article class="project fade-in">
+            <img src="./Assets/Projetos/100divs.jpg" alt="Prévia do projeto 100 Divs Challenge" />
             <div class="project-body">
-              <h3>100 Divs Challenge</h3>
-              <p class="muted">Coleção de mini projetos para evolução contínua em CSS e JavaScript.</p>
-              <div class="project-links"><a class="btn" href="https://guii-100divs-challenge.netlify.app/" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/100divs" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <h3>100 Divs Challenge</h3><p class="muted">Coleção de mini projetos para evolução contínua em CSS e JavaScript.</p>
+              <div class="chips"><span class="chip">JavaScript</span><span class="chip">CSS</span><span class="chip">UI</span></div>
+              <div class="project-links">
+                <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/100divs" target="_blank" rel="noopener noreferrer" aria-label="GitHub do projeto 100 Divs" data-cursor="hover"><i data-lucide="github"></i></a>
+                <a class="icon-link" href="https://guii-100divs-challenge.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Demo do projeto 100 Divs" data-cursor="hover"><i data-lucide="external-link"></i></a>
+              </div>
             </div>
           </article>
-
-          <article class="project-card">
-            <img src="./Assets/Projetos/Dindin.jpg" alt="Projeto Dindin" />
+          <article class="project fade-in">
+            <img src="./Assets/Projetos/Dindin.jpg" alt="Prévia do projeto Dindin" />
             <div class="project-body">
-              <h3>Dindin</h3>
-              <p class="muted">Plataforma para controle de finanças pessoais com front e back integrados.</p>
-              <div class="project-links"><a class="btn" href="https://dindinfinance.netlify.app" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/Dindin" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <h3>Dindin</h3><p class="muted">Plataforma para controle de finanças pessoais com front e back integrados.</p>
+              <div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">PostgreSQL</span></div>
+              <div class="project-links">
+                <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/Dindin" target="_blank" rel="noopener noreferrer" aria-label="GitHub do projeto Dindin" data-cursor="hover"><i data-lucide="github"></i></a>
+                <a class="icon-link" href="https://dindinfinance.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Demo do projeto Dindin" data-cursor="hover"><i data-lucide="external-link"></i></a>
+              </div>
             </div>
           </article>
-
-          <article class="project-card">
-            <img src="./Assets/Projetos/Shottrainer.jpg" alt="Projeto Shot Trainer" />
+          <article class="project fade-in">
+            <img src="./Assets/Projetos/Shottrainer.jpg" alt="Prévia do projeto Shot Trainer" />
             <div class="project-body">
-              <h3>Shot Trainer</h3>
-              <p class="muted">Mini game para treino de reflexos com JavaScript e diferentes dificuldades.</p>
-              <div class="project-links"><a class="btn" href="https://guii-shot-trainer.netlify.app" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20HTML%2C%20CSS%2C%20JavaScript/Jogo%20da%20mira" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <h3>Shot Trainer</h3><p class="muted">Mini game para treino de reflexos com JavaScript e diferentes dificuldades.</p>
+              <div class="chips"><span class="chip">JavaScript</span><span class="chip">Game Loop</span><span class="chip">Canvas</span></div>
+              <div class="project-links">
+                <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20HTML%2C%20CSS%2C%20JavaScript/Jogo%20da%20mira" target="_blank" rel="noopener noreferrer" aria-label="GitHub do projeto Shot Trainer" data-cursor="hover"><i data-lucide="github"></i></a>
+                <a class="icon-link" href="https://guii-shot-trainer.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Demo do projeto Shot Trainer" data-cursor="hover"><i data-lucide="external-link"></i></a>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="section fade-in">
       <div class="container">
         <h2>Contato</h2>
-        <div class="contact-grid">
-          <div class="panel">
-            <ul class="contact-list">
-              <li><strong>Cellphone:</strong> +55 (71) 99203-6561</li>
-              <li><strong>E-mail:</strong> <a href="mailto:Guilherme.a.s.moreira@gmail.com">Guilherme.a.s.moreira@gmail.com</a></li>
-              <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/guiimoreira/" target="_blank" rel="noopener noreferrer">linkedin.com/in/guiimoreira</a></li>
-              <li><strong>GitHub:</strong> <a href="https://github.com/GuiiMoreira/Projetos" target="_blank" rel="noopener noreferrer">github.com/GuiiMoreira/Projetos</a></li>
-              <li><strong>Instagram:</strong> <a href="https://www.instagram.com/guii_moreira/" target="_blank" rel="noopener noreferrer">@guii_moreira</a></li>
-              <li><strong>Twitter/X:</strong> <a href="https://twitter.com/_Guii_Moreira" target="_blank" rel="noopener noreferrer">@_Guii_Moreira</a></li>
-            </ul>
-          </div>
-
-          <aside class="panel">
-            <h3 style="margin-bottom:8px;">Procurado</h3>
-            <p><strong>Guilherme Moreira</strong></p>
-            <img src="./Assets/old.jpg" alt="Poster estilizado" style="margin:12px 0; border-radius:8px;" />
-            <p class="muted">Recompensa: Desenvolvedor Full Stack</p>
-          </aside>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:Guilherme.a.s.moreira@gmail.com" data-cursor="hover">Guilherme.a.s.moreira@gmail.com</a>
+          <a class="contact-link" href="https://github.com/GuiiMoreira/Projetos" target="_blank" rel="noopener noreferrer" data-cursor="hover">github.com/GuiiMoreira/Projetos</a>
+          <a class="contact-link" href="https://www.linkedin.com/in/guiimoreira/" target="_blank" rel="noopener noreferrer" data-cursor="hover">linkedin.com/in/guiimoreira</a>
+          <a class="contact-link" href="https://www.instagram.com/guii_moreira/" target="_blank" rel="noopener noreferrer" data-cursor="hover">instagram.com/guii_moreira</a>
+          <a class="contact-link" href="https://twitter.com/_Guii_Moreira" target="_blank" rel="noopener noreferrer" data-cursor="hover">twitter.com/_Guii_Moreira</a>
+          <p class="muted" style="margin-top:var(--space-2)">Telefone: +55 (71) 99203-6561</p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer id="footer">
-    <div class="container">
-      <p>© <span id="year"></span> Guilherme Moreira. Obrigado pela visita!</p>
+  <footer class="site-footer">
+    <p>© 2026 Guilherme Moreira — Feito com código e café</p>
+    <div class="footer-icons">
+      <a class="icon-link" href="https://github.com/GuiiMoreira/Projetos" aria-label="GitHub" target="_blank" rel="noopener noreferrer" data-cursor="hover"><i data-lucide="github"></i></a>
+      <a class="icon-link" href="https://www.linkedin.com/in/guiimoreira/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" data-cursor="hover"><i data-lucide="linkedin"></i></a>
+      <a class="icon-link" href="mailto:Guilherme.a.s.moreira@gmail.com" aria-label="Enviar email" data-cursor="hover"><i data-lucide="mail"></i></a>
     </div>
   </footer>
 
   <script>
-    const links = [...document.querySelectorAll('.nav-links a')];
-    const sections = links
-      .map((link) => document.querySelector(link.getAttribute('href')))
-      .filter(Boolean);
+    lucide.createIcons();
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const root = document.documentElement;
+    const hero = document.getElementById('hero');
+    const overlay = document.querySelector('.hero-overlay');
+    const heading = document.getElementById('hero-heading');
+    const subtitle = document.getElementById('hero-subtitle');
 
-    const setActiveLink = () => {
-      const fromTop = window.scrollY + 120;
-      let activeSection = sections[0];
+    // Theme toggle
+    const themeButton = document.getElementById('theme-toggle');
+    themeButton.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      themeButton.innerHTML = next === 'dark' ? '<i data-lucide="moon"></i>' : '<i data-lucide="sun"></i>';
+      lucide.createIcons();
+    });
 
-      for (const section of sections) {
-        if (section.offsetTop <= fromTop) activeSection = section;
+    // Mobile menu with stagger animation (Motion.js)
+    const { animate, stagger } = Motion;
+    const menu = document.getElementById('mobile-menu');
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileLinks = menu.querySelectorAll('a');
+    menuToggle.addEventListener('click', () => {
+      const open = !menu.classList.contains('open');
+      menu.classList.toggle('open', open);
+      menu.setAttribute('aria-hidden', String(!open));
+      menuToggle.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+      lucide.createIcons();
+      if (open) animate(mobileLinks, { opacity: [0, 1], y: [12, 0] }, { duration: 0.35, delay: stagger(0.05) });
+    });
+    mobileLinks.forEach(link => link.addEventListener('click', () => menuToggle.click()));
+
+    // Active nav section
+    const allNavLinks = [...document.querySelectorAll('.nav-desktop a[href^="#"]')];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          allNavLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`));
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0.1 });
+    document.querySelectorAll('main section[id]').forEach(sec => observer.observe(sec));
+
+    // Cursor behavior + lerp ring
+    if (!prefersReducedMotion && !window.matchMedia('(hover:none)').matches) {
+      const dot = document.querySelector('.cursor-dot');
+      const ring = document.querySelector('.cursor-ring');
+      let cx = innerWidth / 2, cy = innerHeight / 2;
+      let rx = cx, ry = cy;
+      const lerp = (a, b, t) => a + (b - a) * t;
+      addEventListener('pointermove', (e) => {
+        cx = e.clientX; cy = e.clientY;
+        dot.style.left = `${cx}px`; dot.style.top = `${cy}px`;
+      }, { passive: true });
+      const animateCursor = () => {
+        rx = lerp(rx, cx, 0.08); ry = lerp(ry, cy, 0.08);
+        ring.style.left = `${rx}px`; ring.style.top = `${ry}px`;
+        requestAnimationFrame(animateCursor);
+      };
+      animateCursor();
+      document.addEventListener('pointerover', (e) => ring.classList.toggle('hover', !!e.target.closest('[data-cursor="hover"]')));
+      document.addEventListener('pointerdown', () => {
+        dot.classList.add('click');
+        setTimeout(() => dot.classList.remove('click'), 120);
+      });
+    }
+
+    // Hero spotlight + parallax
+    const mouse = { x: -9999, y: -9999 };
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      mouse.x = x; mouse.y = y;
+      hero.style.background = `radial-gradient(600px circle at ${x}px ${y}px, var(--color-accent-glow) 0%, transparent 70%), var(--color-bg)`;
+      overlay.style.background = `radial-gradient(500px circle at ${x}px ${y}px, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 72%)`;
+      if (prefersReducedMotion) return;
+      const nx = (x / r.width - 0.5) * 2;
+      const ny = (y / r.height - 0.5) * 2;
+      heading.style.transform = `translate(${Math.max(-15, Math.min(15, nx * 8))}px, ${Math.max(-15, Math.min(15, ny * 8))}px)`;
+      subtitle.style.transform = `translate(${Math.max(-15, Math.min(15, nx * 15))}px, ${Math.max(-15, Math.min(15, ny * 15))}px)`;
+    });
+    hero.addEventListener('pointerleave', () => {
+      mouse.x = -9999; mouse.y = -9999;
+      heading.style.transform = 'translate(0,0)';
+      subtitle.style.transform = 'translate(0,0)';
+    });
+
+    // Particle field
+    class Particle {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
+        this.size = 1.5 + Math.random() * 1.5;
+        this.wander = Math.random() * Math.PI * 2;
       }
-
-      links.forEach((link) => {
-        const isActive = link.getAttribute('href') === `#${activeSection.id}`;
-        link.classList.toggle('active', isActive);
-      });
-    };
-
-    document.addEventListener('scroll', setActiveLink, { passive: true });
-    window.addEventListener('load', setActiveLink);
-    document.querySelector('#year').textContent = new Date().getFullYear();
-
-    const hero = document.querySelector('#hero');
-    const heroTitle = document.querySelector('.hero-title');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-
-    if (hero) {
-      hero.addEventListener('pointermove', (event) => {
-        const rect = hero.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        hero.style.setProperty('--spotlight-x', `${x}px`);
-        hero.style.setProperty('--spotlight-y', `${y}px`);
-
-        if (prefersReducedMotion) return;
-
-        const nx = ((x / rect.width) - 0.5) * 2;
-        const ny = ((y / rect.height) - 0.5) * 2;
-
-        const titleX = Math.max(-15, Math.min(15, nx * 15));
-        const titleY = Math.max(-15, Math.min(15, ny * 15));
-        const subtitleX = Math.max(-15, Math.min(15, nx * 10));
-        const subtitleY = Math.max(-15, Math.min(15, ny * 10));
-
-        if (heroTitle) heroTitle.style.transform = `translate3d(${titleX}px, ${titleY}px, 0)`;
-        if (heroSubtitle) heroSubtitle.style.transform = `translate3d(${subtitleX}px, ${subtitleY}px, 0)`;
-      });
-
-      hero.addEventListener('pointerleave', () => {
-        hero.style.setProperty('--spotlight-x', '50%');
-        hero.style.setProperty('--spotlight-y', '50%');
-        if (heroTitle) heroTitle.style.transform = '';
-        if (heroSubtitle) heroSubtitle.style.transform = '';
-      });
+      update(mx, my) {
+        const dx = this.x - mx; const dy = this.y - my;
+        const dist = Math.hypot(dx, dy) || 1;
+        this.wander += (Math.random() - 0.5) * 0.15;
+        this.vx += Math.cos(this.wander) * 0.05;
+        this.vy += Math.sin(this.wander) * 0.05;
+        if (dist < 100) {
+          this.vx += (dx / dist) * 0.8;
+          this.vy += (dy / dist) * 0.8;
+        }
+        this.vx *= 0.95; this.vy *= 0.95;
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > this.canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > this.canvas.height) this.vy *= -1;
+        this.x = Math.max(0, Math.min(this.canvas.width, this.x));
+        this.y = Math.max(0, Math.min(this.canvas.height, this.y));
+      }
+      draw(ctx) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 212, 255, 0.4)';
+        ctx.fill();
+      }
     }
 
     if (!prefersReducedMotion) {
-      const dot = document.querySelector('.cursor-dot');
-      const ring = document.querySelector('.cursor-ring');
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
-      let ringX = mouseX;
-      let ringY = mouseY;
-
-      const updateCursorTargets = (event) => {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        if (dot) {
-          dot.style.left = `${mouseX}px`;
-          dot.style.top = `${mouseY}px`;
-        }
-      };
-
-      document.addEventListener('pointermove', updateCursorTargets, { passive: true });
-
-      const animateRing = () => {
-        ringX += (mouseX - ringX) * 0.08;
-        ringY += (mouseY - ringY) * 0.08;
-        if (ring) {
-          ring.style.left = `${ringX}px`;
-          ring.style.top = `${ringY}px`;
-        }
-        requestAnimationFrame(animateRing);
-      };
-
-      requestAnimationFrame(animateRing);
-
-      document.addEventListener('pointerover', (event) => {
-        const hoverTarget = event.target.closest('[data-cursor="hover"]');
-        if (ring) ring.classList.toggle('is-hover', Boolean(hoverTarget));
-      });
-
-      document.addEventListener('pointerdown', () => {
-        dot?.classList.add('is-click');
-        ring?.classList.add('is-click');
-        setTimeout(() => {
-          dot?.classList.remove('is-click');
-          ring?.classList.remove('is-click');
-        }, 140);
-      });
-    }
-
-    const canvas = document.querySelector('#hero-particles');
-    if (canvas && hero && !prefersReducedMotion) {
+      const canvas = document.getElementById('hero-canvas');
       const ctx = canvas.getContext('2d');
-      const particleCount = 80;
-      const connectDistance = 120;
-      const repulseDistance = 100;
-      const friction = 0.98;
       const particles = [];
-      const mouse = { x: -9999, y: -9999 };
-
-      const resizeCanvas = () => {
+      const total = 80;
+      const resize = () => {
         const rect = hero.getBoundingClientRect();
-        canvas.width = Math.max(1, Math.floor(rect.width));
-        canvas.height = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(rect.width);
+        canvas.height = Math.floor(rect.height);
       };
-
-      const createParticle = () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        driftX: (Math.random() - 0.5) * 0.02,
-        driftY: (Math.random() - 0.5) * 0.02,
-        radius: 1 + Math.random() * 2
-      });
-
-      const initParticles = () => {
-        particles.length = 0;
-        for (let i = 0; i < particleCount; i += 1) particles.push(createParticle());
-      };
-
-      const updateParticles = () => {
-        for (const p of particles) {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
-          const d = Math.hypot(dx, dy);
-
-          if (d < repulseDistance) {
-            const force = (repulseDistance - d) / repulseDistance;
-            const angle = Math.atan2(dy, dx);
-            p.vx += Math.cos(angle) * force * 0.8;
-            p.vy += Math.sin(angle) * force * 0.8;
-          }
-
-          p.vx += p.driftX;
-          p.vy += p.driftY;
-          p.vx *= friction;
-          p.vy *= friction;
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x <= 0 || p.x >= canvas.width) {
-            p.vx *= -1;
-            p.x = Math.max(0, Math.min(canvas.width, p.x));
-          }
-
-          if (p.y <= 0 || p.y >= canvas.height) {
-            p.vy *= -1;
-            p.y = Math.max(0, Math.min(canvas.height, p.y));
-          }
-        }
-      };
-
-      const drawParticles = () => {
+      resize();
+      addEventListener('resize', resize);
+      for (let i = 0; i < total; i++) particles.push(new Particle(canvas));
+      const frame = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < particles.length; i += 1) {
+        for (let i = 0; i < particles.length; i++) {
           const a = particles[i];
-          ctx.beginPath();
-          ctx.arc(a.x, a.y, a.radius, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(65, 31, 25, 0.45)';
-          ctx.fill();
-
-          for (let j = i + 1; j < particles.length; j += 1) {
+          a.update(mouse.x, mouse.y);
+          a.draw(ctx);
+          for (let j = i + 1; j < particles.length; j++) {
             const b = particles[j];
-            const dist = Math.hypot(a.x - b.x, a.y - b.y);
-            if (dist < connectDistance) {
-              const alpha = 1 - dist / connectDistance;
-              ctx.strokeStyle = `rgba(186, 0, 0, ${alpha * 0.28})`;
-              ctx.lineWidth = 1;
+            const d = Math.hypot(a.x - b.x, a.y - b.y);
+            if (d < 120) {
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
               ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = 'rgba(0, 212, 255, 0.08)';
+              ctx.lineWidth = 1;
               ctx.stroke();
             }
           }
         }
+        requestAnimationFrame(frame);
       };
-
-      const tick = () => {
-        updateParticles();
-        drawParticles();
-        requestAnimationFrame(tick);
-      };
-
-      hero.addEventListener('pointermove', (event) => {
-        const rect = hero.getBoundingClientRect();
-        mouse.x = event.clientX - rect.left;
-        mouse.y = event.clientY - rect.top;
-      });
-
-      hero.addEventListener('pointerleave', () => {
-        mouse.x = -9999;
-        mouse.y = -9999;
-      });
-
-      window.addEventListener('resize', () => {
-        resizeCanvas();
-        initParticles();
-      });
-
-      resizeCanvas();
-      initParticles();
-      requestAnimationFrame(tick);
+      frame();
     }
   </script>
 </body>
