@@ -11,6 +11,7 @@
       --bg: #f3f4e1;
       --text: #411f19;
       --accent: #ba0000;
+      --color-accent-glow: rgba(186, 0, 0, 0.25);
       --card: #fffdf4;
       --border: #d9cdbd;
       --muted: #7b6258;
@@ -25,6 +26,7 @@
       color: var(--text);
       font-family: 'Source Sans 3', sans-serif;
       line-height: 1.6;
+      cursor: none;
     }
 
     img { max-width: 100%; display: block; }
@@ -86,24 +88,49 @@
 
     .lead { font-size: clamp(1.05rem, 2.4vw, 1.35rem); max-width: 760px; }
 
-    .hero-grid {
-      margin-top: 24px;
+    #hero {
+      position: relative;
+      min-height: 100dvh;
+      border-bottom: 1px solid var(--border);
+      overflow: clip;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      align-items: center;
+      isolation: isolate;
+      --spotlight-x: 50%;
+      --spotlight-y: 50%;
+      background:
+        radial-gradient(600px circle at var(--spotlight-x) var(--spotlight-y), var(--color-accent-glow), transparent 70%),
+        linear-gradient(180deg, #f7f8e9 0%, var(--bg) 100%);
     }
 
-    .hero-frame {
-      background: #fff;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      border-radius: 10px;
-      transition: transform .35s ease, box-shadow .35s ease;
+    #hero .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
     }
 
-    .hero-frame:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 24px rgba(65, 31, 25, 0.15);
+    #hero .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(600px circle at var(--spotlight-x) var(--spotlight-y), var(--color-accent-glow), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      padding: 32px 0;
+      max-width: 860px;
+    }
+
+    .hero-title,
+    .hero-subtitle {
+      transition: transform 220ms ease-out;
+      will-change: transform;
     }
 
     .hero-actions {
@@ -131,6 +158,42 @@
     }
 
     .btn:hover { transform: translateY(-2px); }
+
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1000;
+      transform: translate(-50%, -50%);
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .cursor-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(186, 0, 0, 0.16);
+    }
+
+    .cursor-ring {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--accent);
+      background: rgba(186, 0, 0, 0.06);
+    }
+
+    .cursor-ring.is-hover {
+      transform: translate(-50%, -50%) scale(2);
+    }
+
+    .cursor-dot.is-click,
+    .cursor-ring.is-click {
+      opacity: 1;
+      filter: brightness(1.5);
+    }
 
     .about-grid {
       display: grid;
@@ -196,18 +259,26 @@
     footer { padding: 28px 0 40px; }
 
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: repeat(2, 1fr); }
       .about-grid,
       .contact-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 520px) {
       .header-inner { flex-direction: column; align-items: flex-start; padding: 10px 0; }
-      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { cursor: auto; }
+      .cursor-dot,
+      .cursor-ring { display: none; }
+      .hero-title,
+      .hero-subtitle { transition: none; }
     }
   </style>
 </head>
 <body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
   <header class="site-header">
     <div class="container header-inner">
       <a href="#hero" class="brand" aria-label="Voltar ao início">GM</a>
@@ -224,20 +295,17 @@
 
   <main>
     <section id="hero" class="hero">
+      <canvas id="hero-particles" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="container">
-        <h1>Sou o Guilherme Moreira, seja bem-vindo ao meu portfólio.</h1>
-        <p class="lead">Engenheiro e desenvolvedor web com foco em Front End, experiência com Back End e paixão por criar experiências digitais úteis, bonitas e com impacto real.</p>
+        <div class="hero-content" data-cursor="hover">
+          <h1 class="hero-title">Sou o Guilherme Moreira, seja bem-vindo ao meu portfólio.</h1>
+          <p class="lead hero-subtitle">Engenheiro e desenvolvedor web com foco em Front End, experiência com Back End e paixão por criar experiências digitais úteis, bonitas e com impacto real.</p>
 
-        <div class="hero-grid" aria-label="Galeria de destaque">
-          <figure class="hero-frame"><img src="./Assets/quadro1.png" alt="Quadro 1" /></figure>
-          <figure class="hero-frame"><img src="./Assets/quadro2.png" alt="Quadro 2" /></figure>
-          <figure class="hero-frame"><img src="./Assets/quadro3.png" alt="Quadro 3" /></figure>
-          <figure class="hero-frame"><img src="./Assets/quadro4.png" alt="Quadro 4" /></figure>
-        </div>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#projects">Ver projetos</a>
-          <a class="btn" href="#contact">Falar comigo</a>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects" data-cursor="hover">Ver projetos</a>
+            <a class="btn" href="#contact" data-cursor="hover">Falar comigo</a>
+          </div>
         </div>
       </div>
     </section>
@@ -406,6 +474,7 @@
     const sections = links
       .map((link) => document.querySelector(link.getAttribute('href')))
       .filter(Boolean);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const setActiveLink = () => {
       const fromTop = window.scrollY + 120;
@@ -424,6 +493,202 @@
     document.addEventListener('scroll', setActiveLink, { passive: true });
     window.addEventListener('load', setActiveLink);
     document.querySelector('#year').textContent = new Date().getFullYear();
+
+    const hero = document.querySelector('#hero');
+    const heroTitle = document.querySelector('.hero-title');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+
+    if (hero) {
+      hero.addEventListener('pointermove', (event) => {
+        const rect = hero.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        hero.style.setProperty('--spotlight-x', `${x}px`);
+        hero.style.setProperty('--spotlight-y', `${y}px`);
+
+        if (prefersReducedMotion) return;
+
+        const nx = ((x / rect.width) - 0.5) * 2;
+        const ny = ((y / rect.height) - 0.5) * 2;
+
+        const titleX = Math.max(-15, Math.min(15, nx * 15));
+        const titleY = Math.max(-15, Math.min(15, ny * 15));
+        const subtitleX = Math.max(-15, Math.min(15, nx * 10));
+        const subtitleY = Math.max(-15, Math.min(15, ny * 10));
+
+        if (heroTitle) heroTitle.style.transform = `translate3d(${titleX}px, ${titleY}px, 0)`;
+        if (heroSubtitle) heroSubtitle.style.transform = `translate3d(${subtitleX}px, ${subtitleY}px, 0)`;
+      });
+
+      hero.addEventListener('pointerleave', () => {
+        hero.style.setProperty('--spotlight-x', '50%');
+        hero.style.setProperty('--spotlight-y', '50%');
+        if (heroTitle) heroTitle.style.transform = '';
+        if (heroSubtitle) heroSubtitle.style.transform = '';
+      });
+    }
+
+    if (!prefersReducedMotion) {
+      const dot = document.querySelector('.cursor-dot');
+      const ring = document.querySelector('.cursor-ring');
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+
+      const updateCursorTargets = (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        if (dot) {
+          dot.style.left = `${mouseX}px`;
+          dot.style.top = `${mouseY}px`;
+        }
+      };
+
+      document.addEventListener('pointermove', updateCursorTargets, { passive: true });
+
+      const animateRing = () => {
+        ringX += (mouseX - ringX) * 0.08;
+        ringY += (mouseY - ringY) * 0.08;
+        if (ring) {
+          ring.style.left = `${ringX}px`;
+          ring.style.top = `${ringY}px`;
+        }
+        requestAnimationFrame(animateRing);
+      };
+
+      requestAnimationFrame(animateRing);
+
+      document.addEventListener('pointerover', (event) => {
+        const hoverTarget = event.target.closest('[data-cursor="hover"]');
+        if (ring) ring.classList.toggle('is-hover', Boolean(hoverTarget));
+      });
+
+      document.addEventListener('pointerdown', () => {
+        dot?.classList.add('is-click');
+        ring?.classList.add('is-click');
+        setTimeout(() => {
+          dot?.classList.remove('is-click');
+          ring?.classList.remove('is-click');
+        }, 140);
+      });
+    }
+
+    const canvas = document.querySelector('#hero-particles');
+    if (canvas && hero && !prefersReducedMotion) {
+      const ctx = canvas.getContext('2d');
+      const particleCount = 80;
+      const connectDistance = 120;
+      const repulseDistance = 100;
+      const friction = 0.98;
+      const particles = [];
+      const mouse = { x: -9999, y: -9999 };
+
+      const resizeCanvas = () => {
+        const rect = hero.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.floor(rect.width));
+        canvas.height = Math.max(1, Math.floor(rect.height));
+      };
+
+      const createParticle = () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        driftX: (Math.random() - 0.5) * 0.02,
+        driftY: (Math.random() - 0.5) * 0.02,
+        radius: 1 + Math.random() * 2
+      });
+
+      const initParticles = () => {
+        particles.length = 0;
+        for (let i = 0; i < particleCount; i += 1) particles.push(createParticle());
+      };
+
+      const updateParticles = () => {
+        for (const p of particles) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const d = Math.hypot(dx, dy);
+
+          if (d < repulseDistance) {
+            const force = (repulseDistance - d) / repulseDistance;
+            const angle = Math.atan2(dy, dx);
+            p.vx += Math.cos(angle) * force * 0.8;
+            p.vy += Math.sin(angle) * force * 0.8;
+          }
+
+          p.vx += p.driftX;
+          p.vy += p.driftY;
+          p.vx *= friction;
+          p.vy *= friction;
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x <= 0 || p.x >= canvas.width) {
+            p.vx *= -1;
+            p.x = Math.max(0, Math.min(canvas.width, p.x));
+          }
+
+          if (p.y <= 0 || p.y >= canvas.height) {
+            p.vy *= -1;
+            p.y = Math.max(0, Math.min(canvas.height, p.y));
+          }
+        }
+      };
+
+      const drawParticles = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particles.length; i += 1) {
+          const a = particles[i];
+          ctx.beginPath();
+          ctx.arc(a.x, a.y, a.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(65, 31, 25, 0.45)';
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j += 1) {
+            const b = particles[j];
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dist < connectDistance) {
+              const alpha = 1 - dist / connectDistance;
+              ctx.strokeStyle = `rgba(186, 0, 0, ${alpha * 0.28})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+      };
+
+      const tick = () => {
+        updateParticles();
+        drawParticles();
+        requestAnimationFrame(tick);
+      };
+
+      hero.addEventListener('pointermove', (event) => {
+        const rect = hero.getBoundingClientRect();
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
+      });
+
+      hero.addEventListener('pointerleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        initParticles();
+      });
+
+      resizeCanvas();
+      initParticles();
+      requestAnimationFrame(tick);
+    }
   </script>
 </body>
 </html>
