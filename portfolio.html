@@ -22,10 +22,10 @@
       --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
       --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
       --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
-      --text-hero: clamp(3rem, 0.5rem + 7vw, 8rem);
+      --text-lg: clamp(1.0625rem, 0.98rem + 0.45vw, 1.3125rem);
+      --text-xl: clamp(1.25rem, 1.08rem + 0.85vw, 1.75rem);
+      --text-2xl: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+      --text-hero: clamp(2.5rem, 1.4rem + 4.5vw, 6rem);
       --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem;
       --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
       --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
@@ -83,7 +83,7 @@
 
     .container { width: var(--container); margin-inline: auto; min-width: 0; }
     h1, h2, h3 { font-family: 'Clash Display', system-ui, sans-serif; line-height: 1.1; letter-spacing: 0.01em; }
-    h1 { font-size: var(--text-hero); max-width: 12ch; }
+    h1 { font-size: var(--text-hero); line-height: 1.08; max-width: 12ch; }
     h2 { font-size: var(--text-2xl); margin-bottom: var(--space-6); }
     .section { padding-block: var(--space-24); border-bottom: 1px solid var(--color-border); }
     main section[id] { scroll-margin-top: 6.5rem; }
@@ -139,8 +139,8 @@
     .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
     .hero-content { position: relative; z-index: 2; padding-top: var(--space-32); padding-bottom: var(--space-16); min-width: 0; }
     .eyebrow { color: var(--color-accent); font-size: var(--text-sm); margin-bottom: var(--space-4); letter-spacing: .08em; text-transform: uppercase; }
-    .hero-sub { font-size: var(--text-lg); max-width: 58ch; margin-top: var(--space-6); color: var(--color-text-muted); }
-    .hero-actions { margin-top: var(--space-10); display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .hero-sub { font-size: var(--text-lg); line-height: 1.55; max-width: 58ch; margin-top: var(--space-4); color: var(--color-text-muted); }
+    .hero-actions { margin-top: var(--space-8); display: flex; gap: var(--space-4); flex-wrap: wrap; }
 
     .btn {
       min-height: 44px; padding: var(--space-3) var(--space-6);
