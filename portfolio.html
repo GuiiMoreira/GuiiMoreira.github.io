@@ -30,7 +30,7 @@
       --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
       --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
       --space-16: 4rem; --space-24: 6rem; --space-32: 8rem;
-      --container: min(1120px, 92vw);
+      --container: min(1120px, 100vw - 2rem);
     }
 
     [data-theme="light"] {
@@ -86,6 +86,7 @@
     h1 { font-size: var(--text-hero); max-width: 12ch; }
     h2 { font-size: var(--text-2xl); margin-bottom: var(--space-6); }
     .section { padding-block: var(--space-24); border-bottom: 1px solid var(--color-border); }
+    main section[id] { scroll-margin-top: 6.5rem; }
     .muted { color: var(--color-text-muted); }
 
     .site-header {
@@ -118,8 +119,14 @@
       transition: opacity 220ms ease;
     }
     .mobile-menu.open { opacity: 1; visibility: visible; pointer-events: auto; }
-    .mobile-menu nav { display: grid; gap: var(--space-6); text-align: center; }
-    .mobile-menu a { color: var(--color-text); text-decoration: none; font-size: var(--text-xl); font-family: 'Clash Display', sans-serif; }
+    .mobile-menu nav { display: grid; gap: var(--space-4); text-align: center; width: min(420px, 100% - 2rem); }
+    .mobile-menu a {
+      color: var(--color-text); text-decoration: none; font-size: var(--text-xl); font-family: 'Clash Display', sans-serif;
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-3);
+      background: color-mix(in oklab, var(--color-surface), transparent 28%);
+    }
+    .mobile-menu.open { padding-top: calc(var(--space-16) + var(--space-4)); }
 
     .hero {
       min-height: 100dvh;
@@ -207,11 +214,27 @@
     }
     @keyframes reveal-fade { to { opacity: 1; } }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1024px) {
       .projects-grid, .ai-grid, .about-grid { grid-template-columns: 1fr; }
+      .section { padding-block: var(--space-16); }
+      .hero-content { padding-top: var(--space-24); padding-bottom: var(--space-12); }
+    }
+
+    @media (max-width: 768px) {
       .nav-desktop a { display: none; }
-      .menu-toggle { display: inline-flex; }
-      .hero-content { padding-top: var(--space-24); }
+      .menu-toggle { display: inline-flex; min-width: 48px; min-height: 48px; }
+      .header-inner { min-height: calc(var(--space-10) + var(--space-4)); }
+      .section { padding-block: var(--space-12); }
+      .hero-content { padding-top: var(--space-16); padding-bottom: var(--space-10); }
+    }
+
+    @media (max-width: 480px) {
+      .section { padding-block: var(--space-10); }
+      .hero-content { padding-top: var(--space-12); padding-bottom: var(--space-8); }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .brand span { font-size: 0.95rem; }
+      .nav-desktop, .header-inner { gap: var(--space-2); }
     }
 
     @media (hover: none) {
@@ -247,7 +270,7 @@
         <a href="#projects" data-cursor="hover">Projetos</a>
         <a href="#contact" data-cursor="hover">Contato</a>
         <button id="theme-toggle" class="icon-btn" aria-label="Alternar tema" data-cursor="hover"><i data-lucide="moon"></i></button>
-        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu" data-cursor="hover"><i data-lucide="menu"></i></button>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" data-cursor="hover"><i data-lucide="menu"></i></button>
       </nav>
     </div>
   </header>
@@ -500,6 +523,8 @@
       const open = !menu.classList.contains('open');
       menu.classList.toggle('open', open);
       menu.setAttribute('aria-hidden', String(!open));
+      menuToggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
       menuToggle.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
       lucide.createIcons();
       if (open) animate(mobileLinks, { opacity: [0, 1], y: [12, 0] }, { duration: 0.35, delay: stagger(0.05) });
