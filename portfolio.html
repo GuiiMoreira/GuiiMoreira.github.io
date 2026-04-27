@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guii Moreira | Portfólio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;700&display=swap');
+
+    :root {
+      --bg: #f3f4e1;
+      --text: #411f19;
+      --accent: #ba0000;
+      --card: #fffdf4;
+      --border: #d9cdbd;
+      --muted: #7b6258;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Sans 3', sans-serif;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; }
+
+    .container { width: min(1120px, 92vw); margin: 0 auto; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(243, 244, 225, 0.94);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Source Serif 4', serif;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 8px 12px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    h1, h2, h3 { font-family: 'Source Serif 4', serif; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 3.25rem); margin-bottom: 12px; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin-bottom: 18px; }
+
+    .lead { font-size: clamp(1.05rem, 2.4vw, 1.35rem); max-width: 760px; }
+
+    .hero-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .hero-frame {
+      background: #fff;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      border-radius: 10px;
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .hero-frame:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 24px rgba(65, 31, 25, 0.15);
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--text);
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: .25s;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: #fff;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .panel + .panel { margin-top: 14px; }
+
+    .muted { color: var(--muted); }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline article { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .tag {
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .tools-grid,
+    .projects-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: grid;
+    }
+
+    .project-body { padding: 14px; display: grid; gap: 10px; }
+    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .contact-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 260px;
+      align-items: start;
+    }
+
+    .contact-list { list-style: none; display: grid; gap: 10px; }
+
+    footer { padding: 28px 0 40px; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .header-inner { flex-direction: column; align-items: flex-start; padding: 10px 0; }
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="brand" aria-label="Voltar ao início">GM</a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#hero" class="active">Home</a>
+        <a href="#about">Perfil</a>
+        <a href="#experience">Experiência</a>
+        <a href="#ai-tools">AI Tools</a>
+        <a href="#projects">Projetos</a>
+        <a href="#contact">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container">
+        <h1>Sou o Guilherme Moreira, seja bem-vindo ao meu portfólio.</h1>
+        <p class="lead">Engenheiro e desenvolvedor web com foco em Front End, experiência com Back End e paixão por criar experiências digitais úteis, bonitas e com impacto real.</p>
+
+        <div class="hero-grid" aria-label="Galeria de destaque">
+          <figure class="hero-frame"><img src="./Assets/quadro1.png" alt="Quadro 1" /></figure>
+          <figure class="hero-frame"><img src="./Assets/quadro2.png" alt="Quadro 2" /></figure>
+          <figure class="hero-frame"><img src="./Assets/quadro3.png" alt="Quadro 3" /></figure>
+          <figure class="hero-frame"><img src="./Assets/quadro4.png" alt="Quadro 4" /></figure>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Ver projetos</a>
+          <a class="btn" href="#contact">Falar comigo</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2>Sobre mim</h2>
+        <div class="about-grid">
+          <aside class="panel">
+            <img src="./Assets/perfil.jpg" alt="Foto de perfil de Guilherme Moreira" />
+          </aside>
+
+          <div>
+            <p>Olá, meu nome é <strong>Guilherme Moreira</strong>. Nasci em Salvador (BA), tenho 29 anos e construí minha carreira inicial na indústria. No final de 2020 decidi migrar para tecnologia e, desde então, tenho estudado e praticado desenvolvimento de software com constância.</p>
+            <br />
+            <p>Ao longo da jornada aprendi e trabalhei com <strong>JavaScript, React, Vue/Nuxt, HTML, CSS, Node.js, SQL, GraphQL, Jest e Cypress</strong>, além de metodologias ágeis com Scrum e Jira. Sou dedicado, curioso e movido por desafios.</p>
+            <br />
+            <p>Meus maiores sonhos são continuar evoluindo como desenvolvedor, gerar impacto positivo nos negócios em que atuo e no futuro contribuir socialmente por meio de iniciativas educacionais para jovens.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <h2>Experiência e formação</h2>
+        <div class="timeline">
+          <article>
+            <h3>Histórico profissional</h3>
+            <p><strong>Desenvolvedor Front End Jr — Cheap2Ship (2022 - atual)</strong></p>
+            <p class="muted">Vue.js e Nuxt, testes com Jest e Cypress, integração GraphQL e trabalho em equipe com Jira.</p>
+            <br />
+            <p><strong>Planejador de intervenções — Petrobras (2019 - 2020)</strong></p>
+            <p class="muted">Gestão de manutenção, documentação, planejamento de intervenções e análises de risco.</p>
+            <br />
+            <p><strong>Técnico em Operações de Processos Industriais — Petrobras (2016 - atual)</strong></p>
+            <p class="muted">Acompanhamento de processos produtivos e garantia da qualidade operacional.</p>
+          </article>
+
+          <article>
+            <h3>Habilidades</h3>
+            <div class="tags">
+              <span class="tag">React</span><span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">HTML</span><span class="tag">Sass</span><span class="tag">Jest</span><span class="tag">Cypress</span><span class="tag">Node.js</span><span class="tag">GraphQL</span><span class="tag">PostgreSQL</span>
+            </div>
+          </article>
+
+          <article>
+            <h3>Perfil acadêmico</h3>
+            <p><strong>UNIRIO</strong> — Bacharelado em Sistemas de Informação (08/2021 - em progresso)</p>
+            <p><strong>Cubos Academy</strong> — Desenvolvimento Web Full Stack (728h, 08/2021 - 03/2022)</p>
+            <p><strong>IFBA</strong> — Engenharia Química (08/2012 - 01/2018)</p>
+            <p><strong>IFBA</strong> — Técnico em Química (04/2008 - 12/2011)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-tools">
+      <div class="container">
+        <h2>AI Tools no meu fluxo</h2>
+        <p class="lead">Ferramentas de IA que aceleram pesquisa, documentação, revisão de código e prototipação durante o desenvolvimento.</p>
+        <div class="tools-grid" style="margin-top:16px;">
+          <article class="panel"><h3>ChatGPT</h3><p class="muted">Apoio para ideação, refatoração, troubleshooting e escrita técnica.</p></article>
+          <article class="panel"><h3>GitHub Copilot</h3><p class="muted">Sugestões de código para acelerar tarefas repetitivas e boilerplate.</p></article>
+          <article class="panel"><h3>Perplexity</h3><p class="muted">Pesquisa rápida com foco em fontes, comparações e descoberta técnica.</p></article>
+          <article class="panel"><h3>Claude</h3><p class="muted">Análise de contexto longo para arquitetura, revisão e planejamento.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2>Projetos</h2>
+        <div class="projects-grid">
+          <article class="project-card">
+            <img src="./Assets/Projetos/Guiflix.jpg" alt="Projeto Guiflix" />
+            <div class="project-body">
+              <h3>GuiiFlix</h3>
+              <p class="muted">Plataforma de filmes com sinopse, trailer, busca por título e filtro por categoria.</p>
+              <div class="project-links"><a class="btn" href="https://guiiflix.netlify.app/" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20HTML%2C%20CSS%2C%20JavaScript/Plataforma%20de%20filmes/GuiFlix" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img src="./Assets/Projetos/Gerenciador-pagamentos.jpg" alt="Gerenciador de pagamentos" />
+            <div class="project-body">
+              <h3>Gerenciador de pagamentos</h3>
+              <p class="muted">Sistema para gestão de clientes e cobranças com autenticação e CRUD completo.</p>
+              <div class="project-links"><a class="btn" href="https://bugados-e-pelados.netlify.app/Login" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/App-Gerenciamento-de-Pagamentos" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img src="./Assets/Projetos/Guichannels.jpg" alt="Projeto Guichannels" />
+            <div class="project-body">
+              <h3>GuiiChannels</h3>
+              <p class="muted">Web app de comunicação assíncrona para equipes com canais e mensagens.</p>
+              <div class="project-links"><a class="btn" href="https://guii-channels.netlify.app" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/ChatApp/ChatApp" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img src="./Assets/Projetos/100divs.jpg" alt="Projeto 100 divs challenge" />
+            <div class="project-body">
+              <h3>100 Divs Challenge</h3>
+              <p class="muted">Coleção de mini projetos para evolução contínua em CSS e JavaScript.</p>
+              <div class="project-links"><a class="btn" href="https://guii-100divs-challenge.netlify.app/" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/100divs" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img src="./Assets/Projetos/Dindin.jpg" alt="Projeto Dindin" />
+            <div class="project-body">
+              <h3>Dindin</h3>
+              <p class="muted">Plataforma para controle de finanças pessoais com front e back integrados.</p>
+              <div class="project-links"><a class="btn" href="https://dindinfinance.netlify.app" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20React/Dindin" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img src="./Assets/Projetos/Shottrainer.jpg" alt="Projeto Shot Trainer" />
+            <div class="project-body">
+              <h3>Shot Trainer</h3>
+              <p class="muted">Mini game para treino de reflexos com JavaScript e diferentes dificuldades.</p>
+              <div class="project-links"><a class="btn" href="https://guii-shot-trainer.netlify.app" target="_blank" rel="noopener noreferrer">Demo</a><a class="btn" href="https://github.com/GuiiMoreira/Projetos/tree/master/Projetos%20-%20HTML%2C%20CSS%2C%20JavaScript/Jogo%20da%20mira" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Contato</h2>
+        <div class="contact-grid">
+          <div class="panel">
+            <ul class="contact-list">
+              <li><strong>Cellphone:</strong> +55 (71) 99203-6561</li>
+              <li><strong>E-mail:</strong> <a href="mailto:Guilherme.a.s.moreira@gmail.com">Guilherme.a.s.moreira@gmail.com</a></li>
+              <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/guiimoreira/" target="_blank" rel="noopener noreferrer">linkedin.com/in/guiimoreira</a></li>
+              <li><strong>GitHub:</strong> <a href="https://github.com/GuiiMoreira/Projetos" target="_blank" rel="noopener noreferrer">github.com/GuiiMoreira/Projetos</a></li>
+              <li><strong>Instagram:</strong> <a href="https://www.instagram.com/guii_moreira/" target="_blank" rel="noopener noreferrer">@guii_moreira</a></li>
+              <li><strong>Twitter/X:</strong> <a href="https://twitter.com/_Guii_Moreira" target="_blank" rel="noopener noreferrer">@_Guii_Moreira</a></li>
+            </ul>
+          </div>
+
+          <aside class="panel">
+            <h3 style="margin-bottom:8px;">Procurado</h3>
+            <p><strong>Guilherme Moreira</strong></p>
+            <img src="./Assets/old.jpg" alt="Poster estilizado" style="margin:12px 0; border-radius:8px;" />
+            <p class="muted">Recompensa: Desenvolvedor Full Stack</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Guilherme Moreira. Obrigado pela visita!</p>
+    </div>
+  </footer>
+
+  <script>
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const setActiveLink = () => {
+      const fromTop = window.scrollY + 120;
+      let activeSection = sections[0];
+
+      for (const section of sections) {
+        if (section.offsetTop <= fromTop) activeSection = section;
+      }
+
+      links.forEach((link) => {
+        const isActive = link.getAttribute('href') === `#${activeSection.id}`;
+        link.classList.toggle('active', isActive);
+      });
+    };
+
+    document.addEventListener('scroll', setActiveLink, { passive: true });
+    window.addEventListener('load', setActiveLink);
+    document.querySelector('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
