@@ -15,7 +15,7 @@
       --color-surface-2: #161616;
       --color-border: rgba(255,255,255,0.08);
       --color-text: #e8e8e8;
-      --color-text-muted: #888888;
+      --color-text-muted: #b0b0b0;
       --color-text-faint: #444444;
       --color-accent: #00d4ff;
       --color-accent-glow: rgba(0, 212, 255, 0.15);
@@ -30,6 +30,8 @@
       --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
       --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
       --space-16: 4rem; --space-24: 6rem; --space-32: 8rem;
+      --shadow-card: 0 10px 26px rgba(0, 0, 0, 0.2);
+      --shadow-card-hover: 0 16px 36px rgba(0, 0, 0, 0.28);
       --container: min(1120px, 100vw - 2rem);
     }
 
@@ -39,10 +41,12 @@
       --color-surface-2: #fbfbf9;
       --color-border: rgba(0,0,0,0.08);
       --color-text: #1a1a1a;
-      --color-text-muted: #666666;
+      --color-text-muted: #4f4f4f;
       --color-text-faint: #aaaaaa;
       --color-accent: #0099bb;
       --color-accent-glow: rgba(0, 153, 187, 0.12);
+      --shadow-card: 0 8px 24px rgba(19, 17, 9, 0.08);
+      --shadow-card-hover: 0 16px 34px rgba(19, 17, 9, 0.16);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,6 +92,10 @@
     .section { padding-block: var(--space-24); border-bottom: 1px solid var(--color-border); }
     main section[id] { scroll-margin-top: 6.5rem; }
     .muted { color: var(--color-text-muted); }
+    .u-mt-2 { margin-top: var(--space-2); }
+    .u-mt-4 { margin-top: var(--space-4); }
+    .flow-md > * + * { margin-top: var(--space-4); }
+    .media-rounded { border-radius: var(--radius-lg); }
 
     .site-header {
       position: sticky; top: 0; z-index: 50;
@@ -107,7 +115,10 @@
       background: transparent;
     }
     .nav-desktop a.active { color: var(--color-accent); border-color: var(--color-border); }
-    .nav-desktop a:hover, .icon-btn:hover, .menu-toggle:hover { border-color: var(--color-border); }
+    .nav-desktop a:hover, .icon-btn:hover, .menu-toggle:hover {
+      border-color: color-mix(in srgb, var(--color-accent) 30%, var(--color-border));
+      background: color-mix(in srgb, var(--color-surface), transparent 40%);
+    }
     .menu-toggle { display: none; }
 
     .mobile-menu {
@@ -146,14 +157,22 @@
       min-height: 44px; padding: var(--space-3) var(--space-6);
       border-radius: var(--radius-lg); border: 1px solid var(--color-border);
       text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: var(--space-2);
-      transition: box-shadow 200ms ease, border-color 200ms ease;
+      transition: box-shadow 200ms ease, border-color 200ms ease, background-color 200ms ease;
     }
     .btn-primary { background: var(--color-accent); color: #021116; border-color: transparent; }
     .btn-ghost { color: var(--color-text); background: transparent; }
     .btn:hover { box-shadow: 0 0 0 3px var(--color-accent-glow); border-color: var(--color-accent); }
 
     .about-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-8); align-items: start; }
-    .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); min-width: 0; }
+    .card,
+    .ai-card,
+    .project {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+    }
+    .card { padding: var(--space-6); min-width: 0; }
     .stack-row { margin-top: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-3); }
     .stack-row img { width: 28px; height: 28px; filter: grayscale(0.1); }
 
@@ -164,21 +183,25 @@
       width: 0.625rem; height: 0.625rem; border-radius: 999px; background: var(--color-accent);
     }
 
-    .ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
-    .ai-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); transition: box-shadow 220ms ease, border-color 220ms ease; }
-    .ai-card:hover { border-color: color-mix(in srgb, var(--color-accent) 38%, var(--color-border)); box-shadow: 0 0 0 3px var(--color-accent-glow); }
+    .ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
+    .ai-card { padding: var(--space-6); transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease; }
+    .ai-card:hover { border-color: color-mix(in srgb, var(--color-accent) 38%, var(--color-border)); box-shadow: var(--shadow-card-hover); transform: translateY(-2px); }
     .ai-head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
     .ai-head img { width: 24px; height: 24px; }
     .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
     .chip { font-size: var(--text-xs); border: 1px solid var(--color-border); border-radius: 999px; padding: var(--space-1) var(--space-3); color: var(--color-text-muted); }
 
-    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
-    .project { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); overflow: hidden; transition: transform 200ms ease, box-shadow 200ms ease; min-width: 0; }
-    .project:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.22), 0 0 0 2px var(--color-accent-glow); }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
+    .project { overflow: hidden; transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; min-width: 0; display: flex; flex-direction: column; }
+    .project:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); border-color: color-mix(in srgb, var(--color-accent) 32%, var(--color-border)); }
     .project img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-    .project-body { padding: var(--space-6); display: grid; gap: var(--space-4); }
-    .project-links { display: flex; gap: var(--space-2); }
+    .project-body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); min-height: 17rem; flex: 1; }
+    .project-links { display: flex; gap: var(--space-2); margin-top: auto; }
     .icon-link { min-width: 44px; min-height: 44px; border-radius: var(--radius-md); border: 1px solid var(--color-border); display: inline-flex; align-items: center; justify-content: center; color: var(--color-text); }
+    .icon-link:hover {
+      border-color: color-mix(in srgb, var(--color-accent) 34%, var(--color-border));
+      background: color-mix(in srgb, var(--color-surface-2), transparent 35%);
+    }
 
     .contact-links { display: grid; gap: var(--space-4); }
     .contact-link {
@@ -190,6 +213,13 @@
       transform: scaleX(0); transform-origin: left; transition: transform 220ms ease;
     }
     .contact-link:hover::after { transform: scaleX(1); }
+    .contact-link:hover { color: color-mix(in srgb, var(--color-text) 90%, var(--color-accent)); }
+
+    :where(a, button, .btn, .icon-link, .contact-link):focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px var(--color-accent-glow);
+    }
 
     .site-footer { padding: var(--space-10) 0; text-align: center; color: var(--color-text-muted); }
     .footer-icons { margin-top: var(--space-4); display: flex; gap: var(--space-3); justify-content: center; }
@@ -304,10 +334,10 @@
       <div class="container">
         <h2 class="fade-in">Sobre</h2>
         <div class="about-grid">
-          <article class="card fade-in">
+          <article class="card fade-in flow-md">
             <p>Olá, meu nome é <strong>Guilherme Moreira</strong>. Nasci em Salvador (BA), tenho 29 anos e iniciei minha carreira na indústria antes de migrar definitivamente para tecnologia no fim de 2020.</p>
-            <p style="margin-top:var(--space-4)">Hoje atuo com desenvolvimento fullstack, combinando frontend sólido e backend pragmático para entregar produto de verdade — com foco em JavaScript, React, Vue/Nuxt, Node.js, SQL e GraphQL.</p>
-            <p style="margin-top:var(--space-4)">Meu objetivo é crescer como referência técnica, gerar impacto real nos produtos em que atuo e, no futuro, devolver esse aprendizado em iniciativas de educação para jovens.</p>
+            <p>Hoje atuo com desenvolvimento fullstack, combinando frontend sólido e backend pragmático para entregar produto de verdade — com foco em JavaScript, React, Vue/Nuxt, Node.js, SQL e GraphQL.</p>
+            <p>Meu objetivo é crescer como referência técnica, gerar impacto real nos produtos em que atuo e, no futuro, devolver esse aprendizado em iniciativas de educação para jovens.</p>
             <div class="stack-row" aria-label="Tecnologias principais">
               <img src="https://cdn.simpleicons.org/javascript" alt="JavaScript" />
               <img src="https://cdn.simpleicons.org/react" alt="React" />
@@ -318,7 +348,7 @@
             </div>
           </article>
           <aside class="card fade-in">
-            <img src="./Assets/perfil.jpg" alt="Foto de perfil de Guilherme Moreira" style="border-radius:var(--radius-lg);" />
+            <img src="./Assets/perfil.jpg" alt="Foto de perfil de Guilherme Moreira" class="media-rounded" />
           </aside>
         </div>
       </div>
@@ -481,7 +511,7 @@
           <a class="contact-link" href="https://www.linkedin.com/in/guiimoreira/" target="_blank" rel="noopener noreferrer" data-cursor="hover">linkedin.com/in/guiimoreira</a>
           <a class="contact-link" href="https://www.instagram.com/guii_moreira/" target="_blank" rel="noopener noreferrer" data-cursor="hover">instagram.com/guii_moreira</a>
           <a class="contact-link" href="https://twitter.com/_Guii_Moreira" target="_blank" rel="noopener noreferrer" data-cursor="hover">twitter.com/_Guii_Moreira</a>
-          <p class="muted" style="margin-top:var(--space-2)">Telefone: +55 (71) 99203-6561</p>
+          <p class="muted u-mt-2">Telefone: +55 (71) 99203-6561</p>
         </div>
       </div>
     </section>
