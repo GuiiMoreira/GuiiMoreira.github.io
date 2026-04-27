@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,18 +35,27 @@
       --container: min(1120px, 100vw - 2rem);
     }
 
-    [data-theme="light"] {
-      --color-bg: #f7f6f2;
-      --color-surface: #f9f8f5;
-      --color-surface-2: #fbfbf9;
-      --color-border: rgba(0,0,0,0.08);
-      --color-text: #1a1a1a;
-      --color-text-muted: #4f4f4f;
-      --color-text-faint: #aaaaaa;
-      --color-accent: #0099bb;
-      --color-accent-glow: rgba(0, 153, 187, 0.12);
-      --shadow-card: 0 8px 24px rgba(19, 17, 9, 0.08);
-      --shadow-card-hover: 0 16px 34px rgba(19, 17, 9, 0.16);
+   [data-theme="light"] {
+      /* Cores de fundo baseadas nas antigas --bg e --card */
+      --color-bg: #f3f4e1;
+      --color-surface: #fffdf4;
+      --color-surface-2: #ffffff; /* Derivado para manter o contraste do card */
+      
+      /* Bordas baseadas na antiga --border */
+      --color-border: #d9cdbd;
+      
+      /* Textos baseados nas antigas --text e --muted */
+      --color-text: #411f19;
+      --color-text-muted: #7b6258;
+      --color-text-faint: #b4a29a; /* Derivado suave a partir do muted */
+      
+      /* Destaques baseados na antiga --accent */
+      --color-accent: #ba0000;
+      --color-accent-glow: rgba(186, 0, 0, 0.25);
+      
+      /* Sombras adaptadas usando o tom do seu texto (#411f19) em RGBA */
+      --shadow-card: 0 8px 24px rgba(65, 31, 25, 0.08);
+      --shadow-card-hover: 0 16px 34px rgba(65, 31, 25, 0.16);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -140,7 +149,7 @@
     .mobile-menu.open { padding-top: calc(var(--space-16) + var(--space-4)); }
 
     .hero {
-      min-height: 100dvh;
+      min-height: calc(100dvh - 65px);
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid var(--color-border);
@@ -534,6 +543,12 @@
     const overlay = document.querySelector('.hero-overlay');
     const heading = document.getElementById('hero-heading');
     const subtitle = document.getElementById('hero-subtitle');
+    const particleTheme = {
+      dot: '#00d4ff',
+      line: '#00d4ff',
+      dotAlpha: 0.4,
+      lineAlpha: 0.2
+    };
 
     // Theme toggle
     const themeButton = document.getElementById('theme-toggle');
@@ -542,6 +557,19 @@
       root.dataset.theme = next;
       themeButton.innerHTML = next === 'dark' ? '<i data-lucide="moon"></i>' : '<i data-lucide="sun"></i>';
       lucide.createIcons();
+
+      // Altera as cores do canvas junto com o tema
+      if (next === 'light') {
+        particleTheme.dot = '#411f19';  // Cor dos pontos no tema claro
+        particleTheme.line = '#ba0000'; // Cor das linhas no tema claro
+        particleTheme.dotAlpha = 0.45;
+        particleTheme.lineAlpha = 0.28;
+      } else {
+        particleTheme.dot = '#00d4ff';
+        particleTheme.line = '#00d4ff';
+        particleTheme.dotAlpha = 0.4;
+        particleTheme.lineAlpha = 0.2;
+      }
     });
 
     // Mobile menu with stagger animation (Motion.js)
@@ -603,8 +631,8 @@
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
       mouse.x = x; mouse.y = y;
-      hero.style.background = `radial-gradient(600px circle at ${x}px ${y}px, var(--color-accent-glow) 0%, transparent 70%), var(--color-bg)`;
-      overlay.style.background = `radial-gradient(500px circle at ${x}px ${y}px, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 72%)`;
+      hero.style.background = `radial-gradient(200px circle at ${x}px ${y}px, var(--color-accent-glow) 0%, transparent 70%), var(--color-bg)`;
+      overlay.style.background = `radial-gradient(200px circle at ${x}px ${y}px, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 72%)`;
       if (prefersReducedMotion) return;
       const nx = (x / r.width - 0.5) * 2;
       const ny = (y / r.height - 0.5) * 2;
@@ -628,8 +656,8 @@
         this.size = 1.5 + Math.random() * 1.5;
         this.damping = 0.95;
         this.maxSpeed = 1.9;
-        this.mouseRadius = 90;
-        this.mouseStrength = 0.32;
+        this.mouseRadius = 120;
+        this.mouseStrength = 3.5;
         this.driftStrength = 0.11 + Math.random() * 0.08;
         this.baseDriftX = (Math.random() - 0.5) * 0.16;
         this.baseDriftY = (Math.random() - 0.5) * 0.16;
@@ -659,10 +687,11 @@
         this.vy *= this.damping;
 
         const speed = Math.hypot(this.vx, this.vy);
-        if (speed > this.maxSpeed) {
-          const scale = this.maxSpeed / speed;
-          this.vx *= scale;
-          this.vy *= scale;
+        // Aplica o limite APENAS se o mouse NÃO estiver empurrando a partícula
+        if (speed > this.maxSpeed && forceMouseX === 0 && forceMouseY === 0) {
+          // Freio suave: a partícula desacelera naturalmente até voltar à velocidade de flutuação
+          this.vx *= 0.85;
+          this.vy *= 0.85;
         }
 
         this.x += this.vx; this.y += this.vy;
@@ -674,8 +703,10 @@
       draw(ctx) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 212, 255, 0.4)';
+        ctx.globalAlpha = particleTheme.dotAlpha;
+        ctx.fillStyle = particleTheme.dot;
         ctx.fill();
+        ctx.globalAlpha = 1; // Reseta o alpha para não afetar outras coisas
       }
     }
 
@@ -683,15 +714,20 @@
       const canvas = document.getElementById('hero-canvas');
       const ctx = canvas.getContext('2d');
       const particles = [];
-      const total = 80;
+      const total = 100;
       const resize = () => {
         const rect = hero.getBoundingClientRect();
-        canvas.width = Math.floor(rect.width);
-        canvas.height = Math.floor(rect.height);
+        canvas.width = Math.max(1, Math.floor(rect.width));
+        canvas.height = Math.max(1, Math.floor(rect.height));
       };
-      resize();
-      addEventListener('resize', resize);
-      for (let i = 0; i < total; i++) particles.push(new Particle(canvas));
+      const init = () => {
+        resize();
+        particles.length = 0;
+        for (let i = 0; i < total; i++) particles.push(new Particle(canvas));
+      };
+
+      init();
+      addEventListener('resize', init);
       const frame = (time) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < particles.length; i++) {
@@ -702,19 +738,21 @@
             const b = particles[j];
             const d = Math.hypot(a.x - b.x, a.y - b.y);
             if (d < 120) {
-              const alpha = (1 - d / 120) * 0.2;
+              const alpha = (1 - d / 120) * particleTheme.lineAlpha;
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
               ctx.lineTo(b.x, b.y);
-              ctx.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
+              ctx.globalAlpha = Math.max(0, alpha); // Proteção contra alpha negativo
+              ctx.strokeStyle = particleTheme.line;
               ctx.lineWidth = 1;
               ctx.stroke();
+              ctx.globalAlpha = 1;
             }
           }
         }
         requestAnimationFrame(frame);
       };
-      frame();
+      requestAnimationFrame(frame);
     }
   </script>
 </body>
